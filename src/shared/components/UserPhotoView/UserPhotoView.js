@@ -10,7 +10,7 @@ export default function UserPhotoView({ uri, chooseThePicture }) {
       {!uri && (
         <Image
           style={styles.avatar}
-          source={require("../../../img/userPhoto.png")}
+          source={require("../../../../assets/img/userPhoto.png")}
         />
       )}
 
