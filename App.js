@@ -1,6 +1,5 @@
 import React, { useEffect, useCallback } from "react";
 import "expo-dev-menu";
-import { Text } from "react-native";
 
 import { LogBox } from "react-native";
 import { Provider } from "react-redux";
