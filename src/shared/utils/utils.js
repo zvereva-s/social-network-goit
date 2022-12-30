@@ -22,12 +22,12 @@ export const createOperationForBuilder = (name, request, condition) => {
   return createAsyncThunk(
     name,
     async (data, { rejectWithValue }) => {
-      const response = await request(data);
+      const response = await request(data).json();
       if (!response) {
         return rejectWithValue(error);
       }
-      const result = await response.json();
-      return result;
+
+      return response;
     },
     { condition }
   );
