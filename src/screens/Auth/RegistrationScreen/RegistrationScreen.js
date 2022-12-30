@@ -29,7 +29,7 @@ export default function RegistrationScreen({ navigation }) {
         setResponse(data);
       })();
     }
-    dispatch(authSignUp({ ...data, photo }));
+    dispatch(authSignUp({ ...data, response }));
 
     setUri("");
   };
