@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { authCheckAuth } from "../../redux/auth/auth-operation";
+import useAuth from "../../shared/hooks/useAuth";
 import useRoute from "../../router";
 
 export default function Main({ onLayoutRootView }) {
@@ -13,8 +14,7 @@ export default function Main({ onLayoutRootView }) {
     dispatch(authCheckAuth());
   }, [dispatch]);
 
-  // const { isLogin } = useSelector((state) => state.auth);
-  const isLogin = false;
+  const { isLogin } = useAuth();
 
   const routing = useRoute(isLogin);
 
