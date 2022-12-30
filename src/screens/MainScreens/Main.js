@@ -13,7 +13,8 @@ export default function Main({ onLayoutRootView }) {
     dispatch(authCheckAuth());
   }, [dispatch]);
 
-  const { isLogin } = useSelector((state) => state.auth);
+  // const { isLogin } = useSelector((state) => state.auth);
+  const isLogin = false;
 
   const routing = useRoute(isLogin);
 
