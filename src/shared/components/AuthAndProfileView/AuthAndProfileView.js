@@ -40,7 +40,7 @@ export default function AuthAndProfileView({ children }) {
       <View style={styles.container}>
         <ImageBackground
           style={styles.backGround}
-          source={require("../../../img/photo_bg.jpeg")}
+          source={require("../../../../assets/img/photo_bg.jpeg")}
         >
           <KeyboardAvoidingView behavior={OS === "iOS" ? "padding" : "heigth"}>
             <View
