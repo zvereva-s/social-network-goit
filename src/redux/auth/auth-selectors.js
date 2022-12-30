@@ -1,1 +1,1 @@
-export const auth = ({ auth }) => auth;
+export const auth = (state) => state;
