@@ -26,10 +26,10 @@ const fulfilled = (store, { payload }) => {
   store.loading = false;
   store.error = null;
 
-  store.user.userID = payload?.uid;
-  store.user.email = payload?.email;
-  store.user.login = payload?.displayName;
-  store.user.photoURL = payload?.photoURL;
+  store.user.userID = payload.uid;
+  store.user.email = payload.email;
+  store.user.login = payload.displayName;
+  store.user.photoURL = payload.photoURL;
 };
 const pending = (store, _) => ({ ...initialState, loading: true });
 const rejected = (store, { payload }) => ({
@@ -65,6 +65,7 @@ const authSlice = createSlice({
             user: { ...payload },
           };
         }
+
         return { ...initialState };
       })
 
