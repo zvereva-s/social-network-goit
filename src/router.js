@@ -45,7 +45,7 @@ export default function useRoute(isAuth) {
           headerShown: false,
           tabBarShowLabel: false,
           tabBarIcon: ({ focused }) => (
-            <IconB type="grid" focused={focused} size={focused ? 40 : 40} />
+            <Icon type="grid" focused={focused} size={focused ? 40 : 40} />
           ),
           tabBarStyle: ((route) => {
             const routeName = getFocusedRouteNameFromRoute(route) ?? "";
@@ -73,7 +73,7 @@ export default function useRoute(isAuth) {
         component={CreatePostScreen}
         options={{
           headerShown: false,
-          tabBarStyle: { display: "none" },
+          // tabBarStyle: { display: "none" },
           tabBarShowLabel: false,
           tabBarIcon: ({ focused }) => (
             <Icon type="plus" focused={focused} size={focused ? 10 : 40} />
