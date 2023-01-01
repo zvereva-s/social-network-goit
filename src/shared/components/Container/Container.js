@@ -1,7 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { StyleSheet, View } from "react-native";
 
+import useDimensions from "../../hooks/useDimensions";
+
 export default function Container({ children }) {
+  const { addListener, removeListener } = useDimensions();
+
+  useEffect(() => {
+    addListener();
+
+    return () => {
+      removeListener();
+    };
+  }, []);
   return <View style={styles.container}>{children}</View>;
 }
 
