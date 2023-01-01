@@ -51,7 +51,7 @@ export default function Home({ route, navigation }) {
   return (
     <Container>
       <UserInfo uri={uri} login={login} email={email} />
-      <PostsList posts={arrayPosts} />
+      <PostsList posts={arrayPosts} navigation={navigation} />
     </Container>
   );
 }
