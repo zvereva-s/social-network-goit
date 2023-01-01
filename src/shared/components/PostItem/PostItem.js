@@ -4,53 +4,58 @@ import Icon from "../Icon/Icon";
 
 export default function PostItem({
   photo,
+  id,
   name,
   locationName,
   locationCoords,
-  id,
   comments,
   navigation,
 }) {
-  const { latitude, longitude } = locationCoords;
+  const navigate = navigation?.navigate;
+  const latitude = locationCoords?.latitude;
+  const longitude = locationCoords?.longitude;
+
   return (
     <View style={styles.postWrapper}>
       <Image source={{ uri: photo }} style={styles.imgPost} />
-      <Text style={styles.titlePost}>{name}</Text>
-      <View style={styles.feedbackWrapper}>
-        <TouchableOpacity
-          style={styles.commentsBox}
-          activeOpacity={0.8}
-          onPress={() => navigate("Коментарі", { photo, id })}
-        >
-          {/* <Icon type="comment" focused={false} size="25" /> */}
-          <Text style={{ ...styles.feedbackTitle, color: "#BDBDBD" }}>
-            {comments?.lenght ? comments.lenght : 0}
-          </Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.feedbackLocation}
-          activeOpacity={0.8}
-          onPress={() =>
-            navigate("Карта", {
-              latitude,
-              longitude,
-              locationName,
-            })
-          }
-        >
-          {/* <Icon type="location" focused={false} size="25" /> */}
-          <Text
-            style={{
-              ...styles.feedbackTitle,
-              textDecorationLine: "underline",
-              marginLeft: 4,
-            }}
+      {name && <Text style={styles.titlePost}>{name}</Text>}
+      {locationCoords && (
+        <View style={styles.feedbackWrapper}>
+          <TouchableOpacity
+            style={styles.commentsBox}
+            activeOpacity={0.8}
+            onPress={() => navigate("Коментарі", { photo, id })}
           >
-            {locationName}
-          </Text>
-        </TouchableOpacity>
-      </View>
+            <Icon type="comment" focused={false} size="25" />
+            <Text style={{ ...styles.feedbackTitle, color: "#BDBDBD" }}>
+              {comments?.lenght ? comments.lenght : 0}
+            </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.feedbackLocation}
+            activeOpacity={0.8}
+            onPress={() =>
+              navigate("Карта", {
+                latitude,
+                longitude,
+                locationName,
+              })
+            }
+          >
+            <Icon type="location" focused={false} size="25" />
+            <Text
+              style={{
+                ...styles.feedbackTitle,
+                textDecorationLine: "underline",
+                marginLeft: 4,
+              }}
+            >
+              {locationName}
+            </Text>
+          </TouchableOpacity>
+        </View>
+      )}
     </View>
   );
 }
@@ -60,8 +65,6 @@ const styles = StyleSheet.create({
     marginBottom: 32,
   },
   imgPost: {
-    display: "block",
-
     height: 240,
     width: 355,
 
