@@ -5,28 +5,24 @@ import {
   ImageBackground,
   KeyboardAvoidingView,
   Keyboard,
-  Dimensions,
 } from "react-native";
 import * as Device from "expo-device";
+
+import useDimensions from "../../hooks/useDimensions";
 
 import { styles } from "./styles";
 
 export default function AuthAndProfileView({ children }) {
+  const { addListener, removeListener } = useDimensions();
+
   const [keyboardStatus, setKeyboardStatus] = useState(false);
-  const [dimensions, setDimensions] = useState(
-    Dimensions.get("window").width - 16 * 2
-  );
+
   const OS = Device.osName;
 
   useEffect(() => {
-    const onChange = () => {
-      const width = Dimensions.get("window").width - 16 * 2;
-      setDimensions(width);
-    };
-    const dimensionsHandler = Dimensions.addEventListener("change", onChange);
-
+    addListener();
     return () => {
-      dimensionsHandler.remove();
+      removeListener();
     };
   }, []);
 
