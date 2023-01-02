@@ -39,7 +39,7 @@ export default function useRoute(isAuth) {
   return (
     <MainTab.Navigator>
       <MainTab.Screen
-        name="Публикации"
+        name="Publications"
         component={PostsScreen}
         options={({ route }) => ({
           headerShown: false,
@@ -49,9 +49,11 @@ export default function useRoute(isAuth) {
           ),
           tabBarStyle: ((route) => {
             const routeName = getFocusedRouteNameFromRoute(route) ?? "";
-            console.log(routeName);
-            if (routeName === "Комментарии" || routeName === "Карта") {
-              return { display: "none" };
+
+            if (routeName === "Коментарі" || routeName === "Карта") {
+              return {
+                tabBarIcon: ({ focused }) => {},
+              };
             }
             return;
           })(route),
