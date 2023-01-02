@@ -27,7 +27,9 @@ export default function PostsScreen() {
       <NestedScreen.Screen
         name="Коментарі"
         component={CommentsScreen}
-        options={{}}
+        options={{
+          tabBarStyle: { display: "none" },
+        }}
       />
       <NestedScreen.Screen name="Карта" component={MapScreen} />
     </NestedScreen.Navigator>
