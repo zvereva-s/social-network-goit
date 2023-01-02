@@ -1,55 +1,30 @@
-import React, { useState, useEffect } from "react";
-import {
-  TouchableWithoutFeedback,
-  View,
-  ImageBackground,
-  KeyboardAvoidingView,
-  Keyboard,
-} from "react-native";
-import * as Device from "expo-device";
+import { View, ImageBackground, KeyboardAvoidingView } from "react-native";
+import Container from "../Container/Container";
 
-import useDimensions from "../../hooks/useDimensions";
+import useKeyboardStatus from "../../hooks/useKeyboardStatus";
 
 import { styles } from "./styles";
 
 export default function AuthAndProfileView({ children }) {
-  const { addListener, removeListener } = useDimensions();
-
-  const [keyboardStatus, setKeyboardStatus] = useState(false);
-
-  const OS = Device.osName;
-
-  useEffect(() => {
-    addListener();
-    return () => {
-      removeListener();
-    };
-  }, []);
-
-  const hideKeyboard = () => {
-    setKeyboardStatus(false);
-    Keyboard.dismiss();
-  };
+  const { behavior } = useKeyboardStatus();
 
   return (
-    <TouchableWithoutFeedback onPress={hideKeyboard}>
-      <View style={styles.container}>
-        <ImageBackground
-          style={styles.backGround}
-          source={require("../../../../assets/img/photo_bg.jpeg")}
-        >
-          <KeyboardAvoidingView behavior={OS === "iOS" ? "padding" : "heigth"}>
-            <View
-              style={{
-                ...styles.form,
-                bottom: 0,
-              }}
-            >
-              {children}
-            </View>
-          </KeyboardAvoidingView>
-        </ImageBackground>
-      </View>
-    </TouchableWithoutFeedback>
+    <Container type="auth">
+      <ImageBackground
+        style={styles.backGround}
+        source={require("../../../../assets/img/photo_bg.jpeg")}
+      >
+        <KeyboardAvoidingView behavior={behavior}>
+          <View
+            style={{
+              ...styles.form,
+              bottom: 0,
+            }}
+          >
+            {children}
+          </View>
+        </KeyboardAvoidingView>
+      </ImageBackground>
+    </Container>
   );
 }
