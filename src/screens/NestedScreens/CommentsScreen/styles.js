@@ -1,6 +1,16 @@
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
+  inputView: {
+    position: "absolute",
+    bottom: 0,
+    backgroundColor: "#fff",
+    width: "100%",
+    height: 70,
+
+    paddingHorizontal: 16,
+    paddingTop: 5,
+  },
   input: {
     flex: 1,
     flexDirection: "row",
@@ -16,7 +26,6 @@ export const styles = StyleSheet.create({
 
     paddingLeft: 16,
     paddingRight: 8,
-    marginBottom: 16,
   },
   txtInput: {
     fontFamily: "Roboto",
