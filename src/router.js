@@ -51,9 +51,7 @@ export default function useRoute(isAuth) {
             const routeName = getFocusedRouteNameFromRoute(route) ?? "";
 
             if (routeName === "Коментарі" || routeName === "Карта") {
-              return {
-                tabBarIcon: ({ focused }) => {},
-              };
+              return { display: "none" };
             }
             return;
           })(route),
