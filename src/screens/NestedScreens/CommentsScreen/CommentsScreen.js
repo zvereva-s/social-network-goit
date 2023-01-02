@@ -49,30 +49,24 @@ export default function CommentsScreen({ route, navigation }) {
         <PostItem photo={photo} id={id} navigation={navigation} />
         <CommentsList comments={commentsArr} />
       </Container>
-      {/* <View
-        style={{
-          position: "absolute",
-          bottom: 10,
-          backgroundColor: "red",
-          width: "100%",
-          height: 55,
-        }}
-      >
-        <TextInput
-          style={styles.txtInput}
-          placeholder="Коментувати..."
-          placeholderTextColor="#BDBDBD"
-          value={comment}
-          onChangeText={setComment}
-        />
-        <TouchableOpacity
-          activeOpacity={0.8}
-          style={styles.btnComment}
-          onPress={handleComment}
-        >
-          <Icon type="arrowUp" focused={false} size="10" />
-        </TouchableOpacity>
-      </View> */}
+      <View style={styles.inputView}>
+        <View style={styles.input}>
+          <TextInput
+            style={styles.txtInput}
+            placeholder="Коментувати..."
+            placeholderTextColor="#BDBDBD"
+            value={comment}
+            onChangeText={setComment}
+          />
+          <TouchableOpacity
+            activeOpacity={0.8}
+            style={styles.btnComment}
+            onPress={handleComment}
+          >
+            <Icon type="arrowUp" focused={false} size="10" />
+          </TouchableOpacity>
+        </View>
+      </View>
     </>
   );
 }
