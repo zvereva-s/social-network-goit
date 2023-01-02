@@ -32,3 +32,51 @@ export const createOperationForBuilder = (name, request, condition) => {
     { condition }
   );
 };
+
+export function handleDate() {
+  const time = new Date().toLocaleTimeString().slice(0, 5);
+
+  const dateArr = new Date().toLocaleDateString().split(".");
+
+  switch (dateArr[1]) {
+    case "01":
+      dateArr[1] = "января,";
+      break;
+    case "02":
+      dateArr[1] = "февраля,";
+      break;
+    case "03":
+      dateArr[1] = "марта,";
+      break;
+    case "04":
+      dateArr[1] = "апреля,";
+      break;
+    case "05":
+      dateArr[1] = "мая,";
+      break;
+    case "06":
+      dateArr[1] = "июня,";
+      break;
+    case "07":
+      dateArr[1] = "июля,";
+      break;
+    case "08":
+      dateArr[1] = "августа,";
+      break;
+    case "09":
+      dateArr[1] = "сентября,";
+      break;
+    case "10":
+      dateArr[1] = "октября,";
+      break;
+    case "11":
+      dateArr[1] = "ноября,";
+      break;
+    case "12":
+      dateArr[1] = "декабря,";
+      break;
+  }
+
+  const dateString = dateArr.join(" ");
+  return `${dateString} | ${time}`;
+}
