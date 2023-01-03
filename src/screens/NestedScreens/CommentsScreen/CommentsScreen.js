@@ -1,7 +1,14 @@
 import React, { useState, useLayoutEffect } from "react";
-import { TouchableOpacity, View, TextInput } from "react-native";
+import {
+  TouchableOpacity,
+  View,
+  TextInput,
+  KeyboardAvoidingView,
+} from "react-native";
 
-import { useAuth } from "../../../shared/hooks/useAuth";
+import useAuth from "../../../shared/hooks/useAuth";
+import useKeyboardStatus from "../../../shared/hooks/useKeyboardStatus";
+import useNavigateButton from "../../../shared/hooks/useNavigateButton";
 
 import {
   fetchPostComments,
@@ -19,28 +26,33 @@ import { styles } from "./styles";
 import { commentsArr } from "./commentsArr";
 
 export default function CommentsScreen({ route, navigation }) {
-  //   const { user } = useAuth();
-  //   const { login, photoURL } = user;
+  const { user } = useAuth();
+  const { login, photoURL } = user;
 
   const { navigate } = navigation;
+
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
   const [date, setDate] = useState(handleDate());
+
   const { photo, id } = route?.params;
 
+  const { keyboardStatus, setKeyboardStatus, behavior, hideKeyboard, OS } =
+    useKeyboardStatus();
+
+  const handleNavigate = () => {
+    navigate("Публікації");
+  };
+  const { handleNavigateButton } = useNavigateButton({
+    navigation,
+    func: handleNavigate,
+    where: "headerLeft",
+    icon: "arrowLeft",
+  });
+
   useLayoutEffect(() => {
-    fetchPostComments(setComments);
-    navigation.setOptions({
-      headerLeft: () => (
-        <TouchableOpacity
-          style={{ paddingLeft: 10 }}
-          activeOpacity={0.8}
-          onPress={() => navigate("Публікації")}
-        >
-          <Icon type="arrowLeft" focused={false} size="25" />
-        </TouchableOpacity>
-      ),
-    });
+    fetchPostComments(setComments, id);
+    handleNavigateButton();
   }, [navigation]);
 
   return (
@@ -49,24 +61,55 @@ export default function CommentsScreen({ route, navigation }) {
         <PostItem photo={photo} id={id} navigation={navigation} />
         <CommentsList comments={commentsArr} />
       </Container>
-      <View style={styles.inputView}>
-        <View style={styles.input}>
-          <TextInput
-            style={styles.txtInput}
-            placeholder="Коментувати..."
-            placeholderTextColor="#BDBDBD"
-            value={comment}
-            onChangeText={setComment}
-          />
-          <TouchableOpacity
-            activeOpacity={0.8}
-            style={styles.btnComment}
-            onPress={handleComment}
+      <KeyboardAvoidingView behavior={behavior}>
+        <View style={keyboardStatus ? styles.styleViewInput : styles.inputView}>
+          <View
+            style={
+              keyboardStatus
+                ? { ...styles.styleInput, bottom: OS === "iOS" ? "30%" : "20%" }
+                : styles.input
+            }
           >
-            <Icon type="arrowUp" focused={false} size="10" />
-          </TouchableOpacity>
+            <TextInput
+              style={{
+                ...styles.txtInput,
+                paddingTop: OS === "iOS" ? 10 : 0,
+              }}
+              placeholder="Коментувати..."
+              placeholderTextColor="#BDBDBD"
+              multiline={true}
+              value={comment}
+              onChangeText={setComment}
+              onFocus={() => {
+                setKeyboardStatus(true);
+              }}
+              onBlur={() => {
+                setKeyboardStatus(false);
+              }}
+            />
+            <View
+              style={{
+                justifyContent: comment ? "flex-end" : "space-between",
+                alignItems: "center",
+                width: "20%",
+              }}
+            >
+              <TouchableOpacity
+                activeOpacity={0.8}
+                style={styles.btnComment}
+                onPress={() => {
+                  handleComment();
+                  setKeyboardStatus(false);
+                  hideKeyboard();
+                  setComment("");
+                }}
+              >
+                <Icon type="arrowUp" focused={false} size="10" />
+              </TouchableOpacity>
+            </View>
+          </View>
         </View>
-      </View>
+      </KeyboardAvoidingView>
     </>
   );
 }
