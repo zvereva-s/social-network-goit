@@ -58,7 +58,7 @@ export default function useRoute(isAuth) {
         })}
       />
       <MainTab.Screen
-        name="Профиль"
+        name="Профіль"
         component={ProfileScreen}
         options={{
           headerShown: false,
@@ -71,14 +71,14 @@ export default function useRoute(isAuth) {
       <MainTab.Screen
         name="CreatePost"
         component={CreatePostScreen}
-        options={{
+        options={({ route }) => ({
           headerShown: false,
-          // tabBarStyle: { display: "none" },
           tabBarShowLabel: false,
           tabBarIcon: ({ focused }) => (
-            <Icon type="plus" focused={focused} size={focused ? 10 : 40} />
+            <Icon type="plus" focused={focused} size={focused ? 40 : 40} />
           ),
-        }}
+          tabBarStyle: { display: "none" },
+        })}
       />
     </MainTab.Navigator>
   );
