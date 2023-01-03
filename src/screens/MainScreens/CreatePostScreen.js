@@ -1,5 +1,20 @@
-import { Text } from "react-native";
+import React from "react";
+import { createStackNavigator } from "@react-navigation/stack";
+
+import CreatePostScreenNested from "../NestedScreens/CreatePostScreenNested/CreatePostScreenNested";
+
+const NestedScreen = createStackNavigator();
 
 export default function CreatePostScreen() {
-  return <Text>CreatePostScreen</Text>;
+  return (
+    <NestedScreen.Navigator>
+      <NestedScreen.Screen
+        name="Створити публікацію"
+        component={CreatePostScreenNested}
+        options={{
+          tabBarStyle: { display: "none" },
+        }}
+      />
+    </NestedScreen.Navigator>
+  );
 }
