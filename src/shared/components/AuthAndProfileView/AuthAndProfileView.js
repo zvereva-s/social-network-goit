@@ -5,9 +5,8 @@ import useKeyboardStatus from "../../hooks/useKeyboardStatus";
 
 import { styles } from "./styles";
 
-export default function AuthAndProfileView({ children }) {
-  const { behavior } = useKeyboardStatus();
-
+export default function AuthAndProfileView({ children, type }) {
+  const { keyboardStatus, behavior } = useKeyboardStatus();
   return (
     <Container type="auth">
       <ImageBackground
@@ -18,7 +17,8 @@ export default function AuthAndProfileView({ children }) {
           <View
             style={{
               ...styles.form,
-              bottom: 0,
+              bottom: keyboardStatus ? 30 : 0,
+              top: type === "profile" ? 200 : 0,
             }}
           >
             {children}
