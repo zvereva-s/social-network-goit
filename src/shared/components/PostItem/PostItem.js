@@ -62,6 +62,7 @@ export default function PostItem({
 
 const styles = StyleSheet.create({
   postWrapper: {
+    width: "100%",
     marginBottom: 32,
   },
   imgPost: {
