@@ -1,6 +1,6 @@
 import db from "../../firebase/config";
 
-export async function fetchPostComments(setComments) {
+export async function fetchPostComments(setComments, id) {
   try {
     await db
       .firestore()
