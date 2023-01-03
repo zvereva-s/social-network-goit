@@ -16,7 +16,7 @@ export default function Main({ onLayoutRootView }) {
 
   const { isLogin } = useAuth();
 
-  const routing = useRoute(true);
+  const routing = useRoute(isLogin);
 
   return (
     <NavigationContainer>
