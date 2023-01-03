@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { View, Text } from "react-native";
 
 import useForm from "../../../shared/hooks/useForm";
+import useKeyboardStatus from "../../../shared/hooks/useKeyboardStatus";
 
 import { authSignIn } from "../../../redux/auth/auth-operation";
 
@@ -25,8 +26,11 @@ export default function LoginScreen({ navigation }) {
   });
   const { email, password } = state;
 
+  const { keyboardStatus, setKeyboardStatus, hideKeyboard, behavior } =
+    useKeyboardStatus();
+
   return (
-    <AuthAndProfileView>
+    <AuthAndProfileView hideKeyboard={hideKeyboard} behavior={behavior}>
       <View
         style={{
           marginBottom: 16,
