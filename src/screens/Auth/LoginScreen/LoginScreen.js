@@ -4,6 +4,7 @@ import { View, Text } from "react-native";
 
 import useForm from "../../../shared/hooks/useForm";
 import useKeyboardStatus from "../../../shared/hooks/useKeyboardStatus";
+import useAuth from "../../../shared/hooks/useAuth";
 
 import { authSignIn } from "../../../redux/auth/auth-operation";
 
@@ -17,6 +18,8 @@ import { styles } from "./styles";
 
 export default function LoginScreen({ navigation }) {
   const dispatch = useDispatch();
+  const { loading, error } = useAuth();
+
   const onSubmit = (data) => {
     dispatch(authSignIn({ ...data }));
   };
@@ -61,7 +64,9 @@ export default function LoginScreen({ navigation }) {
           marginTop: 43,
         }}
       >
-        <Button text="Ввійти" func={handleSubmit} />
+        {!loading && <Button text="Ввійти" func={handleSubmit} />}
+        {loading && <Text>Loading ...</Text>}
+        {error && <Text>{error.message}</Text>}
       </View>
       <Text
         style={styles.linkPath}
