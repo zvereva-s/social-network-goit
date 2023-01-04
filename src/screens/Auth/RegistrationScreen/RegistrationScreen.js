@@ -21,17 +21,15 @@ import { styles } from "./styles";
 export default function RegistrationScreen({ navigation }) {
   const dispatch = useDispatch();
   const { loading, error } = useAuth();
-  const { makePhoto, uri, setUri, chooseThePicture, markup } = useMakePhoto();
-  const [response, setResponse] = useState(null);
 
-  const onSubmit = (data) => {
+  const { makePhoto, uri, setUri, chooseThePicture, markup } = useMakePhoto();
+
+  const onSubmit = async (data) => {
+    let photo;
     if (uri) {
-      (async () => {
-        const data = await uploadPhotoToServer(uri, "userPhoto");
-        setResponse(data);
-      })();
+      photo = await uploadPhotoToServer(uri, "userPhoto");
     }
-    dispatch(authSignUp({ ...data, response }));
+    dispatch(authSignUp({ ...data, photo }));
 
     setUri("");
   };
@@ -83,7 +81,7 @@ export default function RegistrationScreen({ navigation }) {
               marginTop: 43,
             }}
           >
-            {!loading && <Button text="Зареєструватися" func={handleSubmit} />}
+            <Button text="Зареєструватися" func={handleSubmit} />
             {loading && <Text>Loading...</Text>}
             {error && <Text>{error.message}</Text>}
           </View>
