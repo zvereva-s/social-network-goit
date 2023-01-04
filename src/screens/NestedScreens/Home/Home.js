@@ -1,5 +1,6 @@
 import { useState, useEffect, useLayoutEffect } from "react";
 import { useDispatch } from "react-redux";
+import { Text, View } from "react-native";
 
 import useAuth from "../../../shared/hooks/useAuth";
 import useNavigateButton from "../../../shared/hooks/useNavigateButton";
@@ -11,8 +12,6 @@ import UserInfo from "./UserInfo/UserInfo";
 import Container from "../../../shared/components/Container/Container";
 import PostsList from "../../../shared/components/PostsList/PostsList";
 
-import { arrayPosts } from "./arrayPost";
-
 export default function Home({ route, navigation }) {
   const dispatch = useDispatch();
 
@@ -23,6 +22,8 @@ export default function Home({ route, navigation }) {
 
   const [posts, setPosts] = useState([]);
   const [comments, setComments] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const handleLogout = () => {
     dispatch(authSignOut());
@@ -33,13 +34,23 @@ export default function Home({ route, navigation }) {
     where: "headerRight",
     icon: "logout",
   });
+  const asyncHandleFetchingPost = async () => {
+    try {
+      setLoading(true);
+      await fetchPosts(setPosts, setComments, comments);
+    } catch (error) {
+      setError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useLayoutEffect(() => {
     handleNavigateButton();
   }, [navigation]);
 
   useEffect(() => {
-    fetchPosts(comments, setPosts, setComments);
+    asyncHandleFetchingPost();
 
     return () => {
       setComments([]);
@@ -50,7 +61,12 @@ export default function Home({ route, navigation }) {
   return (
     <Container>
       <UserInfo uri={uri} login={login} email={email} />
-      <PostsList posts={arrayPosts} navigation={navigation} />
+      {loading && (
+        <View style={{ alignItems: "center", justifyContent: "center" }}>
+          <Text>Loading...</Text>
+        </View>
+      )}
+      <PostsList posts={posts} comments={comments} navigation={navigation} />
     </Container>
   );
 }
