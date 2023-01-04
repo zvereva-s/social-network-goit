@@ -31,7 +31,7 @@ const fulfilled = (store, { payload }) => {
   store.user.login = payload.displayName;
   store.user.photoURL = payload.photoURL;
 };
-const pending = (store, _) => ({ ...initialState, loading: true });
+const pending = (store, _) => ({ ...initialState, loading: true, error: null });
 const rejected = (store, { payload }) => ({
   ...initialState,
   loading: false,
