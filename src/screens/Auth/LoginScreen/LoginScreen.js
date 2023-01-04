@@ -64,7 +64,7 @@ export default function LoginScreen({ navigation }) {
           marginTop: 43,
         }}
       >
-        {!loading && <Button text="Ввійти" func={handleSubmit} />}
+        <Button text="Ввійти" func={handleSubmit} />
         {loading && <Text>Loading ...</Text>}
         {error && <Text>{error.message}</Text>}
       </View>
