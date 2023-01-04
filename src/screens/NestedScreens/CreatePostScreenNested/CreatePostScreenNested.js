@@ -19,6 +19,8 @@ import {
   uploadPhotoToServer,
 } from "../../../shared/api/api-uploadImages";
 
+import { postPost } from "../../../shared/api/api-posts";
+
 import Container from "../../../shared/components/Container/Container";
 import CustomTextInput from "../../../shared/components/CustomTextInput/CustomTextInput.js";
 import Icon from "../../../shared/components/Icon/Icon";
@@ -38,15 +40,18 @@ export default function CreatePostScreenNested({ navigation }) {
   });
   const [focusedTrash, setFocusedTrash] = useState(false);
 
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
   const { user } = useAuth();
   const { userID, login } = user;
 
-  const handleButton = () => {
+  const handleNavButton = () => {
     navigate("Публікації");
   };
   const { handleNavigateButton } = useNavigateButton({
     navigation,
-    func: handleButton,
+    func: handleNavButton,
     where: "headerLeft",
     icon: "arrowLeft",
   });
@@ -54,13 +59,33 @@ export default function CreatePostScreenNested({ navigation }) {
   const { keyboardStatus, setKeyboardStatus, behavior, OS } =
     useKeyboardStatus();
 
-  const onSubmit = () => {};
-
-  const { state, setState, handleChangeTextInput, handleSubmit } = useForm({
+  const { state, handleChangeTextInput, handleSubmit } = useForm({
     initialState,
     onSubmit,
   });
   const { name, locationName } = state;
+
+  async function onSubmit(data) {
+    setLoading(true);
+    try {
+      const photo = await uploadPhotoToServer(uri, "postImages");
+      await postPost({ ...data, photo, login, userID, locationCoords });
+    } catch (error) {
+      setError(error);
+    } finally {
+      setLoading(false);
+      navigate("Публікації");
+    }
+  }
+
+  const handleTrashBtn = () => {
+    setUri("");
+    setLocationCoords({
+      latitude: "",
+      longitude: "",
+    });
+    setFocusedTrash(false);
+  };
 
   useLayoutEffect(() => {
     handleNavigateButton();
@@ -134,7 +159,10 @@ export default function CreatePostScreenNested({ navigation }) {
         <Button
           text="Опублікувати"
           type={name && locationName ? "" : "disabled"}
+          func={handleSubmit}
         />
+        {loading && <Text>Wait...</Text>}
+        {error && <Text>{error.message}</Text>}
       </KeyboardAvoidingView>
       <TouchableOpacity
         style={{
@@ -142,19 +170,7 @@ export default function CreatePostScreenNested({ navigation }) {
           bottom: OS === "iOS" ? -190 : -150,
         }}
         activeOpacity={0.8}
-        onPress={() => {
-          setFocusedTrash(!focusedTrash);
-          // setCamera("");
-          // setUri("");
-          // setLocationCoords({
-          //   latitude: "",
-          //   longitude: "",
-          // });
-          // setState({
-          //   name: "",
-          //   locationName: "",
-          // });
-        }}
+        onPress={handleTrashBtn}
       >
         <View
           style={{
