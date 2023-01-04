@@ -4,6 +4,7 @@ import {
   View,
   TextInput,
   KeyboardAvoidingView,
+  Text,
 } from "react-native";
 
 import useAuth from "../../../shared/hooks/useAuth";
@@ -23,16 +24,25 @@ import Icon from "../../../shared/components/Icon/Icon";
 import PostItem from "../../../shared/components/PostItem/PostItem";
 
 import { styles } from "./styles";
-import { commentsArr } from "./commentsArr";
 
-export default function CommentsScreen({ route, navigation }) {
+export default function CommentsScreen({ route, navigation, commentsArr }) {
   const { user } = useAuth();
   const { login, photoURL } = user;
 
   const { navigate } = navigation;
 
   const [comment, setComment] = useState("");
-  const [comments, setComments] = useState([]);
+  const [comments, setComments] = useState(commentsArr);
+
+  const [loading, setLoading] = useState({
+    loadingComments: false,
+    loadingAddComment: false,
+  });
+  const [error, setError] = useState({
+    errComments: null,
+    errAddComment: null,
+  });
+
   const [date, setDate] = useState(handleDate());
 
   const { photo, id } = route?.params;
@@ -50,8 +60,45 @@ export default function CommentsScreen({ route, navigation }) {
     icon: "arrowLeft",
   });
 
+  const handleFetchingComments = async () => {
+    setLoading((pS) => ({ ...pS, loadingComments: true }));
+    setError((pS) => ({ ...pS, errComments: null }));
+    try {
+      await fetchPostComments(setComments, id);
+    } catch (error) {
+      setError((pS) => ({ ...pS, errComments: true }));
+    } finally {
+      setLoading((pS) => ({ ...pS, loadingComments: false }));
+    }
+  };
+
+  const handlePostComment = async () => {
+    setLoading(true);
+    try {
+      await handleComment(id, {
+        comment,
+        login,
+        date,
+        dateID: Date.now(),
+        photoURL,
+      });
+    } catch (err) {
+      console.log(
+        `%c[Error - handleComment(): ${err.message}]`,
+        "color: #F44336;"
+      );
+      setError(err);
+    } finally {
+      setLoading(false);
+      setComment("");
+      setKeyboardStatus(false);
+      hideKeyboard();
+      handleFetchingComments();
+    }
+  };
+
   useLayoutEffect(() => {
-    fetchPostComments(setComments, id);
+    handleFetchingComments();
     handleNavigateButton();
   }, [navigation]);
 
@@ -59,7 +106,15 @@ export default function CommentsScreen({ route, navigation }) {
     <>
       <Container type="comments">
         <PostItem photo={photo} id={id} navigation={navigation} />
-        <CommentsList comments={commentsArr} />
+        {loading.loadingComments && <Text>Loading 😶‍🌫️</Text>}
+        {!loading.loadingComments && <CommentsList comments={comments} />}
+        {error.errComments && (
+          <View style={{ alignItems: "center" }}>
+            <Text style={{ alignItems: "center" }}>
+              Something has gone wrong 😞
+            </Text>
+          </View>
+        )}
       </Container>
       <KeyboardAvoidingView behavior={behavior}>
         <View style={keyboardStatus ? styles.styleViewInput : styles.inputView}>
@@ -97,12 +152,7 @@ export default function CommentsScreen({ route, navigation }) {
               <TouchableOpacity
                 activeOpacity={0.8}
                 style={styles.btnComment}
-                onPress={() => {
-                  handleComment();
-                  setKeyboardStatus(false);
-                  hideKeyboard();
-                  setComment("");
-                }}
+                onPress={handlePostComment}
               >
                 <Icon type="arrowUp" focused={false} size="10" />
               </TouchableOpacity>
