@@ -54,6 +54,24 @@ export async function getUserPosts(setComments, setPosts, userId) {
   }
 }
 
+export async function postPost(obj) {
+  try {
+    await db
+      .firestore()
+      .collection("posts")
+      .add({
+        ...obj,
+        date: Date.now(),
+      });
+  } catch (error) {
+    console.log(
+      `%c[Error - uploadPostToServer(): ${error.message}]`,
+      "color: #F44336;"
+    );
+
+    throw error;
+  }
+}
 async function fetchingCollection(setComments, id) {
   try {
     await db
