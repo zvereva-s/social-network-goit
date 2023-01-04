@@ -4,6 +4,7 @@ import { View, Text } from "react-native";
 
 import useMakePhoto from "../../../shared/hooks/useMakePhoto";
 import useForm from "../../../shared/hooks/useForm";
+import useAuth from "../../../shared/hooks/useAuth";
 
 import { authSignUp } from "../../../redux/auth/auth-operation";
 import { uploadPhotoToServer } from "../../../shared/api/api-uploadImages";
@@ -19,6 +20,7 @@ import { styles } from "./styles";
 
 export default function RegistrationScreen({ navigation }) {
   const dispatch = useDispatch();
+  const { loading, error } = useAuth();
   const { makePhoto, uri, setUri, chooseThePicture, markup } = useMakePhoto();
   const [response, setResponse] = useState(null);
 
@@ -81,7 +83,9 @@ export default function RegistrationScreen({ navigation }) {
               marginTop: 43,
             }}
           >
-            <Button text="Зареєструватися" func={handleSubmit} />
+            {!loading && <Button text="Зареєструватися" func={handleSubmit} />}
+            {loading && <Text>Loading...</Text>}
+            {error && <Text>{error.message}</Text>}
           </View>
           <Text
             style={styles.linkPath}
