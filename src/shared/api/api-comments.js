@@ -8,12 +8,14 @@ export async function fetchPostComments(setComments, id) {
       .doc(id)
       .collection("comments")
       .onSnapshot(({ docs }) => {
-        setComments(
+        return setComments(
           docs
-            .map((doc) => ({
-              ...doc.data(),
-              id: doc.id,
-            }))
+            .map((doc) => {
+              return {
+                ...doc.data(),
+                id: doc.id,
+              };
+            })
             .sort((firstPost, lastPost) => lastPost.dateID - firstPost.dateID)
         );
       });
@@ -22,25 +24,14 @@ export async function fetchPostComments(setComments, id) {
       `%c[Error - fetchPostComments(): ${error.message}]`,
       "color: #F44336;"
     );
-
     throw error;
   }
 }
-export async function handleComment(setComment) {
-  try {
-    await db
-      .firestore()
-      .collection("posts")
-      .doc(id)
-      .collection("comments")
-      .add({ comment, login, date, dateID: Date.now(), photoURL });
-    setComment("");
-  } catch (error) {
-    console.log(
-      `%c[Error - handleComment(): ${error.message}]`,
-      "color: #F44336;"
-    );
-
-    throw error;
-  }
+export async function handleComment(id, obj) {
+  await db
+    .firestore()
+    .collection("posts")
+    .doc(id)
+    .collection("comments")
+    .add({ ...obj, dateID: Date.now() });
 }
