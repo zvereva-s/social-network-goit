@@ -2,9 +2,14 @@ import { StyleSheet, View, FlatList } from "react-native";
 
 import PostItem from "../PostItem/PostItem";
 
-export default function PostsList({ posts, navigation }) {
+export default function PostsList({ posts, navigation, comments, type }) {
   return (
-    <View style={styles.postsWrapper}>
+    <View
+      style={{
+        ...styles.postsWrapper,
+        paddingBottom: type === "profile" ? 300 : 50,
+      }}
+    >
       <FlatList
         data={posts}
         keyExtractor={({ id }) => id}
@@ -15,7 +20,7 @@ export default function PostsList({ posts, navigation }) {
             name={item.name}
             locationName={item.locationName}
             locationCoords={item.locationCoords}
-            comments={item.comments}
+            comments={comments}
             navigation={navigation}
           />
         )}
