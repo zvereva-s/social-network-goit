@@ -15,6 +15,10 @@ export default function PostItem({
   const latitude = locationCoords?.latitude;
   const longitude = locationCoords?.longitude;
 
+  const commentInfo = comments?.filter((doc) => doc.id === id)[0];
+  const commentNumber = commentInfo?.commentNumber;
+  const commentsArr = commentInfo?.comments;
+
   return (
     <View style={styles.postWrapper}>
       <Image source={{ uri: photo }} style={styles.imgPost} />
@@ -24,11 +28,11 @@ export default function PostItem({
           <TouchableOpacity
             style={styles.commentsBox}
             activeOpacity={0.8}
-            onPress={() => navigate("Коментарі", { photo, id })}
+            onPress={() => navigate("Коментарі", { photo, id, commentsArr })}
           >
             <Icon type="comment" focused={false} size="25" />
             <Text style={{ ...styles.feedbackTitle, color: "#BDBDBD" }}>
-              {comments?.lenght ? comments.lenght : 0}
+              {commentNumber}
             </Text>
           </TouchableOpacity>
 
