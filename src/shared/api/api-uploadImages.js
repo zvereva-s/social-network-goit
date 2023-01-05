@@ -1,19 +1,9 @@
 import { nanoid } from "@reduxjs/toolkit";
-import * as Location from "expo-location";
 import db from "../../firebase/config";
 
-export async function takePhoto(camera, setUri, setLocationCoords) {
+export async function takePhoto(camera, setUri) {
   const { uri } = await camera.takePictureAsync();
   setUri(uri);
-
-  const data = await Location.getCurrentPositionAsync();
-
-  if (setLocationCoords) {
-    setLocationCoords({
-      latitude: data.coords.latitude,
-      longitude: data.coords.longitude,
-    });
-  }
 }
 export async function uploadPhotoToServer(uri, nameCollection) {
   try {
