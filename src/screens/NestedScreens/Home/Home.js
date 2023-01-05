@@ -12,6 +12,7 @@ import UserInfo from "./UserInfo/UserInfo";
 import Container from "../../../shared/components/Container/Container";
 import PostsList from "../../../shared/components/PostsList/PostsList";
 import Spinner from "../../../shared/components/Spinner/Spinner";
+import Notification from "../../../shared/components/Notification/Notification";
 
 export default function Home({ route, navigation }) {
   const dispatch = useDispatch();
@@ -71,6 +72,7 @@ export default function Home({ route, navigation }) {
         <PostsList posts={posts} comments={comments} navigation={navigation} />
       </Container>
       {loading && <Spinner bool="false" size="large" color="grey" />}
+      {error && <Notification type="error" text={error.message} />}
     </>
   );
 }
