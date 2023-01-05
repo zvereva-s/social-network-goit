@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { View, Text } from "react-native";
+import { View, Text, ActivityIndicator } from "react-native";
 
 import useMakePhoto from "../../../shared/hooks/useMakePhoto";
 import useForm from "../../../shared/hooks/useForm";
@@ -14,6 +14,7 @@ import UserPhotoView from "../../../shared/components/UserPhotoView/UserPhotoVie
 import Title from "../../../shared/components/Title/Title";
 import Button from "../../../shared/components/Button/Button";
 import CustomTextInput from "../../../shared/components/CustomTextInput/CustomTextInput";
+import Spinner from "../../../shared/components/Spinner/Spinner";
 
 import { initialState } from "./initialState";
 import { styles } from "./styles";
@@ -82,7 +83,6 @@ export default function RegistrationScreen({ navigation }) {
             }}
           >
             <Button text="Зареєструватися" func={handleSubmit} />
-            {loading && <Text>Loading...</Text>}
             {error && <Text>{error.message}</Text>}
           </View>
           <Text
@@ -96,6 +96,7 @@ export default function RegistrationScreen({ navigation }) {
         </AuthAndProfileView>
       )}
       {makePhoto && markup}
+      {loading && <Spinner bool="false" size="large" color="grey" />}
     </>
   );
 }
