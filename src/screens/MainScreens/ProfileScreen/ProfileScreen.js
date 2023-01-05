@@ -5,14 +5,19 @@ import { View, TouchableOpacity, Text } from "react-native";
 import useAuth from "../../../shared/hooks/useAuth";
 import useMakePhoto from "../../../shared/hooks/useMakePhoto";
 
-import { authSignOut } from "../../../redux/auth/auth-operation";
+import {
+  authSignOut,
+  authUpdateProfilePhoto,
+} from "../../../redux/auth/auth-operation";
 import { getUserPosts } from "../../../shared/api/api-posts";
+import { uploadPhotoToServer } from "../../../shared/api/api-uploadImages";
 
 import AuthAndProfileView from "../../../shared/components/AuthAndProfileView/AuthAndProfileView";
 import UserPhotoView from "../../../shared/components/UserPhotoView/UserPhotoView";
 import Title from "../../../shared/components/Title/Title";
 import PostList from "../../../shared/components/PostsList/PostsList";
 import Icon from "../../../shared/components/Icon/Icon";
+import Spinner from "../../../shared/components/Spinner/Spinner";
 
 import { styles } from "./styles";
 
@@ -41,15 +46,24 @@ export default function ProfileScreen({ navigation }) {
       setLoading(false);
     }
   };
+  async function func() {
+    const photo = await uploadPhotoToServer(uri, "userPhoto");
+    dispatch(authUpdateProfilePhoto(photo));
+  }
 
   useEffect(() => {
     handleFetchUserPosts();
+    if (uri) {
+      setLoading(true);
+      func();
+      setLoading(false);
+    }
 
     return async () => {
       setComments([]);
       setUserPosts([]);
     };
-  }, []);
+  }, [uri]);
 
   return (
     <>
@@ -89,8 +103,7 @@ export default function ProfileScreen({ navigation }) {
               </Text>
             </>
           )}
-          {loading && <Text>Loading 😶‍🌫️</Text>}
-          {error && <Text>Something has gone wrong 😞</Text>}
+          {error && <Text>{error.message}</Text>}
           <PostList
             navigation={navigation}
             posts={userPosts}
@@ -100,6 +113,7 @@ export default function ProfileScreen({ navigation }) {
         </AuthAndProfileView>
       )}
       {makePhoto && markup}
+      {loading && <Spinner bool="false" size="large" color="grey" />}
     </>
   );
 }
