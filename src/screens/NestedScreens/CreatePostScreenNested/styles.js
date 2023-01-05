@@ -20,7 +20,7 @@ export const styles = StyleSheet.create({
     position: "relative",
     top: 0,
     left: 0,
-    zIndex: 1,
+    zIndex: 0,
     justifyContent: "center",
     alignItems: "center",
 
