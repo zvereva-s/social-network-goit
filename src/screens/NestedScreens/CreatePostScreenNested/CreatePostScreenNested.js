@@ -28,6 +28,7 @@ import CustomTextInput from "../../../shared/components/CustomTextInput/CustomTe
 import Icon from "../../../shared/components/Icon/Icon";
 import Button from "../../../shared/components/Button/Button";
 import Spinner from "../../../shared/components/Spinner/Spinner";
+import Notification from "../../../shared/components/Notification/Notification";
 
 import { initialState } from "./initialState";
 import { styles } from "./styles";
@@ -200,6 +201,7 @@ export default function CreatePostScreenNested({ navigation }) {
         </TouchableOpacity>
       </Container>
       {loading && <Spinner bool="false" size="large" color="grey" />}
+      {error && <Notification type="error" text={error.message} />}
     </>
   );
 }
