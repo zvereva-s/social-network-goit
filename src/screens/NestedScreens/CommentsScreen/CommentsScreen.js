@@ -4,7 +4,6 @@ import {
   View,
   TextInput,
   KeyboardAvoidingView,
-  Text,
 } from "react-native";
 
 import useAuth from "../../../shared/hooks/useAuth";
@@ -23,6 +22,7 @@ import Container from "../../../shared/components/Container/Container";
 import Icon from "../../../shared/components/Icon/Icon";
 import PostItem from "../../../shared/components/PostItem/PostItem";
 import Spinner from "../../../shared/components/Spinner/Spinner";
+import Notification from "../../../shared/components/Notification/Notification";
 
 import { styles } from "./styles";
 
@@ -147,6 +147,7 @@ export default function CommentsScreen({ route, navigation, commentsArr }) {
         </View>
       </KeyboardAvoidingView>
       {loading && <Spinner bool="false" size="large" color="grey" />}
+      {error && <Notification type="error" text={error.message} />}
     </>
   );
 }
