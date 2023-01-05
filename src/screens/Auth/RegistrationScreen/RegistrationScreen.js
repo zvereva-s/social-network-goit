@@ -83,7 +83,11 @@ export default function RegistrationScreen({ navigation }) {
               marginTop: 43,
             }}
           >
-            <Button text="Зареєструватися" func={handleSubmit} />
+            <Button
+              text="Зареєструватися"
+              func={handleSubmit}
+              type={email && login && password ? "" : "disabled"}
+            />
           </View>
           <Text
             style={styles.linkPath}
