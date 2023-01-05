@@ -22,6 +22,7 @@ import CommentsList from "./CommentsList/CommentsList";
 import Container from "../../../shared/components/Container/Container";
 import Icon from "../../../shared/components/Icon/Icon";
 import PostItem from "../../../shared/components/PostItem/PostItem";
+import Spinner from "../../../shared/components/Spinner/Spinner";
 
 import { styles } from "./styles";
 
@@ -34,14 +35,8 @@ export default function CommentsScreen({ route, navigation, commentsArr }) {
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState(commentsArr);
 
-  const [loading, setLoading] = useState({
-    loadingComments: false,
-    loadingAddComment: false,
-  });
-  const [error, setError] = useState({
-    errComments: null,
-    errAddComment: null,
-  });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const [date, setDate] = useState(handleDate());
 
@@ -61,14 +56,13 @@ export default function CommentsScreen({ route, navigation, commentsArr }) {
   });
 
   const handleFetchingComments = async () => {
-    setLoading((pS) => ({ ...pS, loadingComments: true }));
-    setError((pS) => ({ ...pS, errComments: null }));
+    setLoading(true);
     try {
       await fetchPostComments(setComments, id);
     } catch (error) {
-      setError((pS) => ({ ...pS, errComments: true }));
+      setError(error);
     } finally {
-      setLoading((pS) => ({ ...pS, loadingComments: false }));
+      setLoading(false);
     }
   };
 
@@ -106,15 +100,7 @@ export default function CommentsScreen({ route, navigation, commentsArr }) {
     <>
       <Container type="comments">
         <PostItem photo={photo} id={id} navigation={navigation} />
-        {loading.loadingComments && <Text>Loading 😶‍🌫️</Text>}
-        {!loading.loadingComments && <CommentsList comments={comments} />}
-        {error.errComments && (
-          <View style={{ alignItems: "center" }}>
-            <Text style={{ alignItems: "center" }}>
-              Something has gone wrong 😞
-            </Text>
-          </View>
-        )}
+        <CommentsList comments={comments} />
       </Container>
       <KeyboardAvoidingView behavior={behavior}>
         <View style={keyboardStatus ? styles.styleViewInput : styles.inputView}>
@@ -160,6 +146,7 @@ export default function CommentsScreen({ route, navigation, commentsArr }) {
           </View>
         </View>
       </KeyboardAvoidingView>
+      {loading && <Spinner bool="false" size="large" color="grey" />}
     </>
   );
 }
