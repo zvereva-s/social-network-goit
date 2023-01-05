@@ -67,7 +67,11 @@ export default function LoginScreen({ navigation }) {
             marginTop: 43,
           }}
         >
-          <Button text="Ввійти" func={handleSubmit} />
+          <Button
+            text="Ввійти"
+            func={handleSubmit}
+            type={email && password ? "" : "disabled"}
+          />
         </View>
         <Text
           style={styles.linkPath}
