@@ -7,12 +7,14 @@ import {
   KeyboardAvoidingView,
 } from "react-native";
 import { Camera } from "expo-camera";
+import * as Location from "expo-location";
 
 import useKeyboardStatus from "../../../shared/hooks/useKeyboardStatus";
 import useNavigateButton from "../../../shared/hooks/useNavigateButton";
 import useDimensions from "../../../shared/hooks/useDimensions";
 import useAuth from "../../../shared/hooks/useAuth";
 import useForm from "../../../shared/hooks/useForm";
+import useMakePhoto from "../../../shared/hooks/useMakePhoto";
 
 import {
   takePhoto,
@@ -25,6 +27,7 @@ import Container from "../../../shared/components/Container/Container";
 import CustomTextInput from "../../../shared/components/CustomTextInput/CustomTextInput.js";
 import Icon from "../../../shared/components/Icon/Icon";
 import Button from "../../../shared/components/Button/Button";
+import Spinner from "../../../shared/components/Spinner/Spinner";
 
 import { initialState } from "./initialState";
 import { styles } from "./styles";
@@ -32,23 +35,14 @@ import { styles } from "./styles";
 export default function CreatePostScreenNested({ navigation }) {
   const { navigate } = navigation;
 
-  const [camera, setCamera] = useState("");
-  const [uri, setUri] = useState("");
-  const [locationCoords, setLocationCoords] = useState({
-    latitude: "",
-    longitude: "",
-  });
-  const [focusedTrash, setFocusedTrash] = useState(false);
-
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-
+  const { makePhoto, uri, setUri, chooseThePicture } = useMakePhoto();
   const { user } = useAuth();
   const { userID, login } = user;
-
-  const handleNavButton = () => {
-    navigate("Публікації");
-  };
+  const { state, handleChangeTextInput, handleSubmit } = useForm({
+    initialState,
+    onSubmit,
+  });
+  const { name, locationName } = state;
   const { handleNavigateButton } = useNavigateButton({
     navigation,
     func: handleNavButton,
@@ -59,28 +53,46 @@ export default function CreatePostScreenNested({ navigation }) {
   const { keyboardStatus, setKeyboardStatus, behavior, OS } =
     useKeyboardStatus();
 
-  const { state, handleChangeTextInput, handleSubmit } = useForm({
-    initialState,
-    onSubmit,
+  const [focusedTrash, setFocusedTrash] = useState(false);
+  const [camera, setCamera] = useState("");
+  const [location, setLocation] = useState({
+    latitude: "",
+    longitude: "",
   });
-  const { name, locationName } = state;
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
+  const handleTakePhotoBtn = async () => {
+    chooseThePicture();
+    if (!makePhoto) {
+      setLoading(true);
+      try {
+        await takePhoto(camera, setUri);
+      } catch (error) {
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    }
+  };
   async function onSubmit(data) {
     setLoading(true);
     try {
       const photo = await uploadPhotoToServer(uri, "postImages");
-      await postPost({ ...data, photo, login, userID, locationCoords });
+      await postPost({ ...data, photo, login, userID, location });
+      navigate("Публікації");
     } catch (error) {
       setError(error);
     } finally {
       setLoading(false);
-      navigate("Публікації");
     }
   }
-
+  function handleNavButton() {
+    navigate("Публікації");
+  }
   const handleTrashBtn = () => {
     setUri("");
-    setLocationCoords({
+    setLocation({
       latitude: "",
       longitude: "",
     });
@@ -92,95 +104,102 @@ export default function CreatePostScreenNested({ navigation }) {
   }, [navigation]);
   useEffect(() => {
     addListener();
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        setError("Permission to access location was denied");
+        return;
+      }
 
+      let location = await Location.getCurrentPositionAsync({});
+      setLocation({
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+      });
+    })();
     return () => {
       removeListener();
-      setUri("");
-      setState(initialState);
-      setLocationCoords({
-        latitude: "",
-        longitude: "",
-      });
     };
   }, []);
 
   return (
-    <Container>
-      {uri && (
-        <View style={styles.imgContainer}>
-          <Image source={{ uri }} style={{ height: 240 }} />
-        </View>
-      )}
-      <Camera style={styles.cameraContainer} ref={setCamera}>
+    <>
+      <Container>
+        <Camera style={styles.cameraContainer} ref={setCamera}>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            style={styles.btnPhotoWrapper}
+            onPress={handleTakePhotoBtn}
+          >
+            <View style={styles.icnWrapper}>
+              <Icon type="photo" focused={false} size="24" />
+            </View>
+          </TouchableOpacity>
+        </Camera>
+        {uri && (
+          <Image
+            style={{ height: 240, ...styles.imgContainer }}
+            source={{ uri }}
+          />
+        )}
+        <Text style={styles.text}>
+          {uri ? "Редагувати фото" : "Завантажити фото"}
+        </Text>
+        <KeyboardAvoidingView behavior={behavior}>
+          <View
+            style={{
+              ...styles.form,
+              bottom: keyboardStatus ? 30 : 0,
+            }}
+          >
+            <CustomTextInput
+              screen="CreatePost"
+              placeholder="Назва..."
+              keyboardType="name"
+              value={name}
+              onChangeText={handleChangeTextInput}
+              onFocus={() => {
+                setKeyboardStatus(true);
+              }}
+            />
+            <CustomTextInput
+              screen="CreatePost"
+              placeholder="Місцевість..."
+              keyboardType="locationName"
+              value={locationName}
+              onChangeText={handleChangeTextInput}
+              onFocus={() => {
+                setKeyboardStatus(true);
+              }}
+              icon="location"
+            />
+          </View>
+          <Button
+            text="Опублікувати"
+            type={name && locationName ? "" : "disabled"}
+            func={handleSubmit}
+          />
+          {error && <Text>{error.message}</Text>}
+        </KeyboardAvoidingView>
         <TouchableOpacity
-          activeOpacity={0.8}
-          style={styles.btnPhotoWrapper}
-          onPress={() => {
-            takePhoto(camera, setUri, setLocationCoords);
+          style={{
+            ...styles.btnTrashContainer,
+            bottom: OS === "iOS" ? -190 : -150,
           }}
+          activeOpacity={0.8}
+          onPress={handleTrashBtn}
         >
-          <View style={styles.icnWrapper}>
-            <Icon type="photo" focused={false} size="24" />
+          <View
+            style={{
+              ...styles.btnTrash,
+              backgroundColor: focusedTrash ? "#FF6C00" : "#F6F6F6",
+            }}
+          >
+            <Icon type="trash" size="24" focused={focusedTrash} />
           </View>
         </TouchableOpacity>
-      </Camera>
-      <Text style={styles.text}>
-        {uri ? "Редагувати фото" : "Завантажити фото"}
-      </Text>
-      <KeyboardAvoidingView behavior={behavior}>
-        <View
-          style={{
-            ...styles.form,
-            bottom: keyboardStatus ? 30 : 0,
-          }}
-        >
-          <CustomTextInput
-            screen="CreatePost"
-            placeholder="Назва..."
-            keyboardType="name"
-            value={name}
-            onChangeText={handleChangeTextInput}
-            onFocus={() => {
-              setKeyboardStatus(true);
-            }}
-          />
-          <CustomTextInput
-            screen="CreatePost"
-            placeholder="Місцевість..."
-            keyboardType="locationName"
-            value={locationName}
-            onChangeText={handleChangeTextInput}
-            onFocus={() => {
-              setKeyboardStatus(true);
-            }}
-            icon="location"
-          />
-        </View>
-        <Button
-          text="Опублікувати"
-          type={name && locationName ? "" : "disabled"}
-          func={handleSubmit}
-        />
-        {loading && <Text>Wait...</Text>}
-        {error && <Text>{error.message}</Text>}
-      </KeyboardAvoidingView>
-      <TouchableOpacity
-        style={{
-          ...styles.btnTrashContainer,
-          bottom: OS === "iOS" ? -190 : -150,
-        }}
-        activeOpacity={0.8}
-        onPress={handleTrashBtn}
-      >
-        <View
-          style={{
-            ...styles.btnTrash,
-            backgroundColor: focusedTrash ? "#FF6C00" : "#F6F6F6",
-          }}
-        >
-          <Icon type="trash" size="24" focused={focusedTrash} />
-        </View>
-      </TouchableOpacity>
-    </Container>
+      </Container>
+      {loading && <Spinner bool="false" size="large" color="grey" />}
+    </>
   );
 }
