@@ -13,6 +13,7 @@ import Title from "../../../shared/components/Title/Title";
 import Button from "../../../shared/components/Button/Button";
 import CustomTextInput from "../../../shared/components/CustomTextInput/CustomTextInput";
 import Spinner from "../../../shared/components/Spinner/Spinner";
+import Notification from "../../../shared/components/Notification/Notification";
 
 import { initialState } from "./initialState";
 import { styles } from "./styles";
@@ -67,7 +68,6 @@ export default function LoginScreen({ navigation }) {
           }}
         >
           <Button text="Ввійти" func={handleSubmit} />
-          {error && <Text>{error.message}</Text>}
         </View>
         <Text
           style={styles.linkPath}
@@ -79,6 +79,7 @@ export default function LoginScreen({ navigation }) {
         </Text>
       </AuthAndProfileView>
       {loading && <Spinner bool="false" size="large" color="grey" />}
+      {error && <Notification type="error" text={error.message} />}
     </>
   );
 }
