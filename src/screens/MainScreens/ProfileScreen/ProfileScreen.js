@@ -18,6 +18,7 @@ import Title from "../../../shared/components/Title/Title";
 import PostList from "../../../shared/components/PostsList/PostsList";
 import Icon from "../../../shared/components/Icon/Icon";
 import Spinner from "../../../shared/components/Spinner/Spinner";
+import Notification from "../../../shared/components/Notification/Notification";
 
 import { styles } from "./styles";
 
@@ -103,7 +104,6 @@ export default function ProfileScreen({ navigation }) {
               </Text>
             </>
           )}
-          {error && <Text>{error.message}</Text>}
           <PostList
             navigation={navigation}
             posts={userPosts}
@@ -114,6 +114,7 @@ export default function ProfileScreen({ navigation }) {
       )}
       {makePhoto && markup}
       {loading && <Spinner bool="false" size="large" color="grey" />}
+      {error && <Notification text={error.message} type="error" />}
     </>
   );
 }
