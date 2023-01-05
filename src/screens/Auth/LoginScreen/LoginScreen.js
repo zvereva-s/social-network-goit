@@ -12,6 +12,7 @@ import AuthAndProfileView from "../../../shared/components/AuthAndProfileView/Au
 import Title from "../../../shared/components/Title/Title";
 import Button from "../../../shared/components/Button/Button";
 import CustomTextInput from "../../../shared/components/CustomTextInput/CustomTextInput";
+import Spinner from "../../../shared/components/Spinner/Spinner";
 
 import { initialState } from "./initialState";
 import { styles } from "./styles";
@@ -33,49 +34,51 @@ export default function LoginScreen({ navigation }) {
     useKeyboardStatus();
 
   return (
-    <AuthAndProfileView hideKeyboard={hideKeyboard} behavior={behavior}>
-      <View
-        style={{
-          marginBottom: 16,
-        }}
-      >
-        <Title text="Ввійти" />
-      </View>
-      <CustomTextInput
-        placeholder="Адреса електронної пошти"
-        onChangeText={handleChangeTextInput}
-        keyboardType="email"
-        pattern="/^[a-zA-Z0-9]+@(?:[a-zA-Z0-9]+\.)+[A-Za-z]+$/"
-        value={email}
-      />
-      <CustomTextInput
-        placeholder="Пароль"
-        onChangeText={handleChangeTextInput}
-        keyboardType="password"
-        pattern="/^[a-zA-Z0-9!@#$%^&*]{6,16}$/"
-        value={password}
-        secureTextEntryStart={true}
-        link={true}
-      />
-      <View
-        style={{
-          width: " 100%",
-          alignItems: "center",
-          marginTop: 43,
-        }}
-      >
-        <Button text="Ввійти" func={handleSubmit} />
-        {loading && <Text>Loading ...</Text>}
-        {error && <Text>{error.message}</Text>}
-      </View>
-      <Text
-        style={styles.linkPath}
-        onPress={() => {
-          navigation.navigate("Registration");
-        }}
-      >
-        Немає аккаунту? Зареєструватися
-      </Text>
-    </AuthAndProfileView>
+    <>
+      <AuthAndProfileView hideKeyboard={hideKeyboard} behavior={behavior}>
+        <View
+          style={{
+            marginBottom: 16,
+          }}
+        >
+          <Title text="Ввійти" />
+        </View>
+        <CustomTextInput
+          placeholder="Адреса електронної пошти"
+          onChangeText={handleChangeTextInput}
+          keyboardType="email"
+          pattern="/^[a-zA-Z0-9]+@(?:[a-zA-Z0-9]+\.)+[A-Za-z]+$/"
+          value={email}
+        />
+        <CustomTextInput
+          placeholder="Пароль"
+          onChangeText={handleChangeTextInput}
+          keyboardType="password"
+          pattern="/^[a-zA-Z0-9!@#$%^&*]{6,16}$/"
+          value={password}
+          secureTextEntryStart={true}
+          link={true}
+        />
+        <View
+          style={{
+            width: " 100%",
+            alignItems: "center",
+            marginTop: 43,
+          }}
+        >
+          <Button text="Ввійти" func={handleSubmit} />
+          {error && <Text>{error.message}</Text>}
+        </View>
+        <Text
+          style={styles.linkPath}
+          onPress={() => {
+            navigation.navigate("Registration");
+          }}
+        >
+          Немає аккаунту? Зареєструватися
+        </Text>
+      </AuthAndProfileView>
+      {loading && <Spinner bool="false" size="large" color="grey" />}
+    </>
   );
 }
