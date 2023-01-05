@@ -11,6 +11,7 @@ import { fetchPosts } from "../../../shared/api/api-posts";
 import UserInfo from "./UserInfo/UserInfo";
 import Container from "../../../shared/components/Container/Container";
 import PostsList from "../../../shared/components/PostsList/PostsList";
+import Spinner from "../../../shared/components/Spinner/Spinner";
 
 export default function Home({ route, navigation }) {
   const dispatch = useDispatch();
@@ -59,14 +60,17 @@ export default function Home({ route, navigation }) {
   }, []);
 
   return (
-    <Container>
-      <UserInfo uri={uri} login={login} email={email} />
-      {loading && (
-        <View style={{ alignItems: "center", justifyContent: "center" }}>
-          <Text>Loading...</Text>
-        </View>
-      )}
-      <PostsList posts={posts} comments={comments} navigation={navigation} />
-    </Container>
+    <>
+      <Container>
+        <UserInfo uri={uri} login={login} email={email} />
+        {loading && (
+          <View style={{ alignItems: "center", justifyContent: "center" }}>
+            <Text>Loading...</Text>
+          </View>
+        )}
+        <PostsList posts={posts} comments={comments} navigation={navigation} />
+      </Container>
+      {loading && <Spinner bool="false" size="large" color="grey" />}
+    </>
   );
 }
