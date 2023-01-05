@@ -41,9 +41,6 @@ export default function RegistrationScreen({ navigation }) {
   });
   const { login, email, password } = state;
 
-  //! cl
-  console.log({ error });
-
   return (
     <>
       {!makePhoto && (
