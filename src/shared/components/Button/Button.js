@@ -75,7 +75,9 @@ export default function Button({ text, type, func }) {
     <TouchableOpacity
       style={type ? btnStyle : styles.btn}
       stylactiveOpacity={0.8}
-      onPress={func}
+      onPress={(e) => {
+        type === "disabled" ? () => {} : func(e);
+      }}
     >
       <Text style={btnTitle}>{text}</Text>
     </TouchableOpacity>
