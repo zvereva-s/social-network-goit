@@ -1,3 +1,4 @@
+import * as Device from "expo-device";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export const createOperation = (name, request, condition) => {
@@ -34,9 +35,20 @@ export const createOperationForBuilder = (name, request, condition) => {
 };
 
 export function handleDate() {
+  const OS = Device.osName;
+
   const time = new Date().toLocaleTimeString().slice(0, 5);
 
-  const dateArr = new Date().toLocaleDateString().split(".");
+  const dateArr =
+    OS === "iOS"
+      ? new Date().toLocaleDateString().split(".")
+      : new Date().toLocaleDateString().split("/");
+
+  if (dateArr[2].length < 4) {
+    console.log(dateArr[2]);
+    console.log(dateArr[2].replace(dateArr[2], `20${dateArr[2]}`));
+    dateArr[2] = dateArr[2].replace(dateArr[2], `20${dateArr[2]}`);
+  }
 
   switch (dateArr[1]) {
     case "01":
