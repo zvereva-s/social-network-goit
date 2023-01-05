@@ -19,7 +19,7 @@ export default function PostsList({ posts, navigation, comments, type }) {
             photo={item.photo}
             name={item.name}
             locationName={item.locationName}
-            locationCoords={item.locationCoords}
+            locationCoords={item.location}
             comments={comments}
             navigation={navigation}
           />
