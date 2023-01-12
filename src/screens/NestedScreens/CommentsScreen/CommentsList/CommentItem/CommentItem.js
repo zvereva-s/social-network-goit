@@ -1,8 +1,10 @@
 import { StyleSheet, View, Image, Text } from "react-native";
+import useSwitchTheme from "../../../../../shared/hooks/useSwitchTheme";
 
 import { styles } from "./styles";
 
 export default function CommentItem({ photoURL, comment, date, modulo }) {
+  const { colors } = useSwitchTheme("default");
   return (
     <View
       style={
@@ -22,11 +24,12 @@ export default function CommentItem({ photoURL, comment, date, modulo }) {
       <View
         style={
           !modulo
-            ? styles.txtWrapper
+            ? { ...styles.txtWrapper, backgroundColor: colors.thumbColor }
             : {
                 ...styles.txtWrapper,
                 borderTopRightRadius: 0,
                 borderTopLeftRadius: 6,
+                backgroundColor: colors.thumbColor,
               }
         }
       >
