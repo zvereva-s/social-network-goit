@@ -10,10 +10,10 @@ export default function useSwitchTheme({ side = "" }) {
 
   const switcher = (
     <Switch
-      trackColor={{ false: "#767577", true: "#F6F6F6" }}
-      ios_backgroundColor="#3e3e3e"
+      trackColor={{ false: "rgb(250, 246, 242)", true: "rgb(71, 71, 74)" }}
+      ios_backgroundColor={isDark ? "rgb(71, 71, 74)" : "rgb(250, 246, 242)"}
       style={{ [side]: 10 }}
-      thumbColor={colors.thumbColor}
+      thumbColor={isDark ? "rgb(145, 145, 148)" : "#FFF"}
       value={isDark}
       onValueChange={handleChangeColorTheme}
     />
