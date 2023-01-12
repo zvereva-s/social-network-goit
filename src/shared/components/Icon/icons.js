@@ -29,8 +29,8 @@ export const arrowLeftIcon = (focused) => {
 </svg>
 `;
 };
-export const gridIcon = (focused) => {
-  const color = !focused ? "#212121" : "#FF6C00";
+export const gridIcon = (focused, isDark) => {
+  const color = !focused ? (isDark ? "#BDBDBD" : "#212121") : "#FF6C00";
   return `<svg width="40" height="40" viewBox="0 0 40 40" fill="none" >
 <rect transform="translate(8 8)" fill="white"/>
 <path fill-rule="evenodd" clip-rule="evenodd" d="M11 11H18V18H11V11Z" stroke="${color}" stroke-opacity="0.8" stroke-linecap="round" stroke-linejoin="round"/>
@@ -64,8 +64,8 @@ export const logoutIcon = (focused) => {
 </svg>
 `;
 };
-export const plusIcon = (focused) => {
-  const color = !focused ? "#212121" : "#FFF";
+export const plusIcon = (focused, isDark) => {
+  const color = !focused ? (isDark ? "#BDBDBD" : "#212121") : "#FFF";
   return `<svg width="40" height="40" viewBox="0 0 40 40" fill="none" >
 <path fill-rule="evenodd" clip-rule="evenodd" d="M20.5 13.5H19.5V19.5H13.5V20.5H19.5V26.5H20.5V20.5H26.5V19.5H20.5V13.5Z" fill="${color}" fill-opacity="0.8"/>
 </svg>
@@ -81,8 +81,8 @@ export const trashIcon = (focused) => {
 </svg>
 `;
 };
-export const userIcon = (focused) => {
-  const color = !focused ? "#212121" : "#FFF";
+export const userIcon = (focused, isDark) => {
+  const color = !focused ? (isDark ? "#BDBDBD" : "#212121") : "#FFF";
   return `<svg width="40" height="40" viewBox="0 0 40 40" fill="none">
 <path d="M28 29V27C28 24.7909 26.2091 23 24 23H16C13.7909 23 12 24.7909 12 27V29" stroke="${color}" stroke-opacity="0.8" stroke-linecap="round" stroke-linejoin="round"/>
 <path fill-rule="evenodd" clip-rule="evenodd" d="M20 19C22.2091 19 24 17.2091 24 15C24 12.7909 22.2091 11 20 11C17.7909 11 16 12.7909 16 15C16 17.2091 17.7909 19 20 19Z" stroke="${color}" stroke-opacity="0.8" stroke-linecap="round" stroke-linejoin="round" />
