@@ -16,7 +16,7 @@ import { userIcon } from "./icons";
 import { plusIcon } from "./icons";
 import { arrowUpIcon } from "./icons";
 
-export default function Icon({ type, focused, size, inversia }) {
+export default function Icon({ type, focused, size, inversia, isDark }) {
   let xml;
   switch (type) {
     case "add":
@@ -41,16 +41,16 @@ export default function Icon({ type, focused, size, inversia }) {
       xml = logoutIcon(focused);
       break;
     case "grid":
-      xml = gridIcon(focused);
+      xml = gridIcon(focused, isDark);
       break;
     case "plus":
-      xml = plusIcon(focused);
+      xml = plusIcon(focused, isDark);
       break;
     case "trash":
       xml = trashIcon(focused);
       break;
     case "user":
-      xml = userIcon(focused);
+      xml = userIcon(focused, isDark);
       break;
     case "photo":
       xml = photoIcon(focused, inversia);
@@ -60,7 +60,7 @@ export default function Icon({ type, focused, size, inversia }) {
       break;
   }
 
-  const PlusIcon = ({ focused, size, inversia }) => {
+  const PlusIcon = ({ focused, size, inversia, isDark }) => {
     return (
       <View style={styles.btnPlus}>
         <SvgXml xml={xml} width={size} height={size} />
@@ -72,7 +72,7 @@ export default function Icon({ type, focused, size, inversia }) {
     <>
       <SvgXml xml={xml} width={size} height={size} />
       {(type === "plus" || type === "user") && focused && (
-        <PlusIcon focused={focused} />
+        <PlusIcon focused={focused} isDark={isDark} />
       )}
     </>
   );
