@@ -24,7 +24,7 @@ import Notification from "../../../shared/components/Notification/Notification";
 import { styles } from "./styles";
 
 export default function ProfileScreen({ navigation }) {
-  const { switcher } = useSwitchTheme("left");
+  const { switcher, colors } = useSwitchTheme("left");
   const { navigate } = navigation;
   const dispatch = useDispatch();
 
@@ -101,7 +101,9 @@ export default function ProfileScreen({ navigation }) {
           </View>
           {userPosts.length === 0 && !error && (
             <>
-              <Text>You have not yet any posts</Text>
+              <Text style={{ color: colors.textColor }}>
+                You have not yet any posts
+              </Text>
               <Text
                 style={{ color: "#FF6C00" }}
                 onPress={() => {
