@@ -1,6 +1,7 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
+import { BlurView } from "expo-blur";
 
 import LoginScreen from "./screens/Auth/LoginScreen/LoginScreen";
 import RegistrationScreen from "./screens/Auth/RegistrationScreen/RegistrationScreen";
@@ -11,10 +12,14 @@ import CreatePostScreen from "./screens/MainScreens/CreatePostScreen";
 
 import Icon from "./shared/components/Icon/Icon";
 
+import useSwitchTheme from "./shared/hooks/useSwitchTheme";
+
 const AuthStack = createStackNavigator();
 const MainTab = createBottomTabNavigator();
 
 export default function useRoute(isAuth) {
+  const { colors, isDark } = useSwitchTheme("default");
+
   if (!isAuth) {
     return (
       <AuthStack.Navigator>
