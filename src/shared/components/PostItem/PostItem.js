@@ -1,5 +1,7 @@
 import { StyleSheet, View, Image, Text, TouchableOpacity } from "react-native";
 
+import useSwitchTheme from "../../hooks/useSwitchTheme";
+
 import Icon from "../Icon/Icon";
 
 export default function PostItem({
@@ -11,6 +13,8 @@ export default function PostItem({
   comments,
   navigation,
 }) {
+  const { colors } = useSwitchTheme("default");
+
   const navigate = navigation?.navigate;
   const latitude = locationCoords?.latitude;
   const longitude = locationCoords?.longitude;
@@ -22,7 +26,11 @@ export default function PostItem({
   return (
     <View style={styles.postWrapper}>
       <Image source={{ uri: photo }} style={styles.imgPost} />
-      {name && <Text style={styles.titlePost}>{name}</Text>}
+      {name && (
+        <Text style={{ ...styles.titlePost, color: colors.textColor }}>
+          {name}
+        </Text>
+      )}
       {locationCoords && (
         <View style={styles.feedbackWrapper}>
           <TouchableOpacity
@@ -53,6 +61,7 @@ export default function PostItem({
                 ...styles.feedbackTitle,
                 textDecorationLine: "underline",
                 marginLeft: 4,
+                color: colors.textColor,
               }}
             >
               {locationName}
