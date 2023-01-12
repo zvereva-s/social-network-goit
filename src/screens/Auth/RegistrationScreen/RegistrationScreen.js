@@ -5,6 +5,7 @@ import { View, Text } from "react-native";
 import useMakePhoto from "../../../shared/hooks/useMakePhoto";
 import useForm from "../../../shared/hooks/useForm";
 import useAuth from "../../../shared/hooks/useAuth";
+import useSwitchTheme from "../../../shared/hooks/useSwitchTheme";
 
 import { authSignUp } from "../../../redux/auth/auth-operation";
 import { uploadPhotoToServer } from "../../../shared/api/api-uploadImages";
@@ -21,6 +22,7 @@ import { initialState } from "./initialState";
 import { styles } from "./styles";
 
 export default function RegistrationScreen({ navigation }) {
+  const { switcher, colors } = useSwitchTheme("right");
   const dispatch = useDispatch();
   const { loading, error } = useAuth();
 
@@ -45,6 +47,9 @@ export default function RegistrationScreen({ navigation }) {
     <>
       {!makePhoto && (
         <AuthAndProfileView>
+          <View style={{ position: "absolute", right: 10, top: 10 }}>
+            {switcher}
+          </View>
           <UserPhotoView uri={uri} chooseThePicture={chooseThePicture} />
           <View
             style={{
@@ -90,7 +95,7 @@ export default function RegistrationScreen({ navigation }) {
             />
           </View>
           <Text
-            style={styles.linkPath}
+            style={{ ...styles.linkPath, color: colors.links }}
             onPress={() => {
               navigation.navigate("Login");
             }}
