@@ -2,7 +2,13 @@ import { TouchableOpacity } from "react-native";
 
 import Icon from "../components/Icon/Icon";
 
-export default function useNavigateButton({ navigation, func, where, icon }) {
+export default function useNavigateButton({
+  navigation,
+  func,
+  where,
+  icon,
+  markup,
+}) {
   const handleNavigateButton = () => {
     return navigation.setOptions({
       [where]: () => (
@@ -13,7 +19,8 @@ export default function useNavigateButton({ navigation, func, where, icon }) {
           activeOpacity={0.8}
           onPress={() => func()}
         >
-          <Icon type={icon} focused={false} size="25" />
+          {!markup && <Icon type={icon} focused={false} size="25" />}
+          {markup}
         </TouchableOpacity>
       ),
     });
