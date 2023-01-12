@@ -18,6 +18,11 @@ export default function PostsScreen() {
     <NestedScreen.Navigator
       initialRouteName={"Publications"}
       headerShown={false}
+      screenOptions={{
+        tabBarStyle: { display: "none" },
+        // tabBarActiveBackgroundColor: colors.background,
+        // tabBarInactiveBackgroundColor: colors.background,
+      }}
     >
       <NestedScreen.Screen
         name="Публікації"
@@ -28,7 +33,7 @@ export default function PostsScreen() {
           headerStyle: {
             backgroundColor: colors.background,
           },
-          tabBarStyle: { display: "none" },
+          // tabBarStyle: { display: "none" },
         }}
       />
       <NestedScreen.Screen
@@ -38,7 +43,7 @@ export default function PostsScreen() {
           headerRight: () => swRight,
           headerTintColor: colorsSec.textColor,
           headerStyle: { backgroundColor: colorsSec.background },
-          tabBarStyle: { display: "none" },
+          // tabBarStyle: { display: "none" },
         }}
       />
       <NestedScreen.Screen name="Карта" component={MapScreen} />
