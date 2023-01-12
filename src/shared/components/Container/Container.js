@@ -8,8 +8,11 @@ import {
 
 import useDimensions from "../../hooks/useDimensions";
 import useKeyboardStatus from "../../hooks/useKeyboardStatus";
+import useSwitchTheme from "../../hooks/useSwitchTheme";
 
 export default function Container({ children, type }) {
+  const { colors } = useSwitchTheme("default");
+
   const { addListener, removeListener } = useDimensions();
   const { hideKeyboard, behavior } = useKeyboardStatus();
 
@@ -35,7 +38,12 @@ export default function Container({ children, type }) {
       </View>
     ) : (
       <TouchableWithoutFeedback onPress={hideKeyboard}>
-        <View style={type === "auth" ? styles.authContainer : styles.container}>
+        <View
+          style={{
+            ...(type === "auth" ? styles.authContainer : styles.container),
+            backgroundColor: colors.background,
+          }}
+        >
           {markup}
         </View>
       </TouchableWithoutFeedback>
@@ -50,7 +58,6 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
 
     width: "100%",
-    backgroundColor: "#FFF",
 
     paddingHorizontal: 16,
     paddingTop: 32,
