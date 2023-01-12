@@ -8,13 +8,17 @@ import { styles } from "./styles";
 
 export default function AuthAndProfileView({ children, type }) {
   const { keyboardStatus, behavior } = useKeyboardStatus();
-  const { colors } = useSwitchTheme("default");
+  const { colors, isDark } = useSwitchTheme("default");
 
   return (
     <Container type="auth">
       <ImageBackground
         style={styles.backGround}
-        source={require("../../../../assets/img/photo_bg.jpeg")}
+        source={
+          isDark
+            ? require("../../../../assets/img/photo_bg_negate.jpeg")
+            : require("../../../../assets/img/photo_bg.jpeg")
+        }
       >
         <KeyboardAvoidingView behavior={behavior}>
           <View
