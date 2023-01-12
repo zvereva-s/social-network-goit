@@ -1,6 +1,8 @@
 import { Text } from "react-native";
+import useSwitchTheme from "../../hooks/useSwitchTheme";
 
 export default function Title({ text, styles }) {
+  const { colors } = useSwitchTheme("default");
   return (
     <Text
       style={
@@ -15,7 +17,7 @@ export default function Title({ text, styles }) {
               lineHeight: 35,
               letterSpacing: 0.02,
 
-              color: "#212121",
+              color: colors.textColor,
             }
       }
     >
