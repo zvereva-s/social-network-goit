@@ -45,8 +45,6 @@ export function handleDate() {
       : new Date().toLocaleDateString().split("/");
 
   if (dateArr[2].length < 4) {
-    console.log(dateArr[2]);
-    console.log(dateArr[2].replace(dateArr[2], `20${dateArr[2]}`));
     dateArr[2] = dateArr[2].replace(dateArr[2], `20${dateArr[2]}`);
   }
 
