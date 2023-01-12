@@ -24,7 +24,7 @@ export async function checkAuth() {
           email: user.email,
           login: user.displayName,
           userID: user.uid,
-          photoURL,
+          photoURL: user.photoURL,
         }
       : null;
   });
