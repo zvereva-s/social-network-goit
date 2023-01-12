@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { TextInput, Text, Keyboard, View } from "react-native";
+import { TextInput, Text, View } from "react-native";
 
 import useHandleValidateInput from "../../hooks/useHandleValidateInput";
 import useKeyboardStatus from "../../hooks/useKeyboardStatus";
+import useSwitchTheme from "../../hooks/useSwitchTheme";
 
 import Icon from "../Icon/Icon";
 
@@ -33,6 +34,7 @@ export default function CustomTextInput(props) {
     });
 
   const { setKeyboardStatus } = useKeyboardStatus();
+  const { colors } = useSwitchTheme("default");
 
   const handleBlur = () => {
     handleValidateInput();
@@ -63,8 +65,15 @@ export default function CustomTextInput(props) {
       <TextInput
         style={
           inputActive
-            ? { ...styles[styleInput], ...styles[`${styleInput}Active`] }
-            : styles[styleInput]
+            ? {
+                ...styles[styleInput],
+                ...styles[`${styleInput}Active`],
+                backgroundColor: colors.thumbColor,
+              }
+            : {
+                ...styles[styleInput],
+                backgroundColor: colors.thumbColor,
+              }
         }
         placeholder={placeholder}
         pattern={pattern}
