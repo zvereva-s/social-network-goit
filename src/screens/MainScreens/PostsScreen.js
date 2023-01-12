@@ -7,8 +7,6 @@ import Home from "../NestedScreens/Home/Home";
 import CommentsScreen from "../NestedScreens/CommentsScreen/CommentsScreen";
 import MapScreen from "../NestedScreens/MapScreen";
 
-import Icon from "../../shared/components/Icon/Icon";
-
 const NestedScreen = createStackNavigator();
 
 export default function PostsScreen() {
@@ -30,9 +28,7 @@ export default function PostsScreen() {
           headerStyle: {
             backgroundColor: colors.background,
           },
-          tabBarIcon: ({ focused }) => (
-            <Icon type="grid" focused={focused} size={focused ? 40 : 40} />
-          ),
+          tabBarStyle: { display: "none" },
         }}
       />
       <NestedScreen.Screen
