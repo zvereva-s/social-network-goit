@@ -21,6 +21,7 @@ export const styles = StyleSheet.create({
   postInput: {
     position: "relative",
 
+    paddingLeft: 5,
     paddingTop: 16,
     paddingBottom: 15,
     marginBottom: 16,
@@ -35,6 +36,7 @@ export const styles = StyleSheet.create({
 
     borderBottomColor: "#E8E8E8",
     borderBottomWidth: 1,
+    borderRadius: 4,
   },
   postInputicon: {
     position: "relative",
@@ -54,6 +56,7 @@ export const styles = StyleSheet.create({
 
     borderBottomColor: "#E8E8E8",
     borderBottomWidth: 1,
+    borderRadius: 4,
   },
   linkShow: {
     position: "absolute",
