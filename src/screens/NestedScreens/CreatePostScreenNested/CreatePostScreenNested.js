@@ -36,7 +36,7 @@ import { styles } from "./styles";
 export default function CreatePostScreenNested({ navigation }) {
   const { navigate } = navigation;
 
-  const { makePhoto, uri, setUri, chooseThePicture } = useMakePhoto();
+  const { makePhoto, uri, setUri, chooseThePicture, markup } = useMakePhoto();
   const { user } = useAuth();
   const { userID, login } = user;
   const { state, handleChangeTextInput, handleSubmit } = useForm({
@@ -64,7 +64,6 @@ export default function CreatePostScreenNested({ navigation }) {
   const [error, setError] = useState(null);
 
   const handleTakePhotoBtn = async () => {
-    chooseThePicture();
     if (!makePhoto) {
       setLoading(true);
       try {
@@ -76,17 +75,19 @@ export default function CreatePostScreenNested({ navigation }) {
       }
     }
   };
+
   async function onSubmit(data) {
     setLoading(true);
     try {
       const photo = await uploadPhotoToServer(uri, "postImages");
       await postPost({ ...data, photo, login, userID, location });
-      navigate("Публікації");
     } catch (error) {
       setError(error);
     } finally {
       setLoading(false);
     }
+    setUri("");
+    navigate("Публікації");
   }
   function handleNavButton() {
     navigate("Публікації");
@@ -125,81 +126,98 @@ export default function CreatePostScreenNested({ navigation }) {
 
   return (
     <>
-      <Container>
-        <Camera style={styles.cameraContainer} ref={setCamera}>
+      {makePhoto && markup}
+      {!makePhoto && (
+        <Container>
+          <Camera style={styles.cameraContainer} ref={setCamera}>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              style={styles.btnPhotoWrapper}
+              onPress={() => {
+                chooseThePicture();
+                handleTakePhotoBtn();
+              }}
+            >
+              <View style={styles.icnWrapper}>
+                <Icon type="photo" focused={false} size="24" />
+              </View>
+            </TouchableOpacity>
+          </Camera>
+          {uri && (
+            <Image
+              style={{ height: 240, ...styles.imgContainer }}
+              source={{ uri }}
+            />
+          )}
+          <Text style={styles.text}>
+            {uri ? (
+              <Text
+                onPress={() => {
+                  setUri("");
+                  chooseThePicture();
+                  handleTakePhotoBtn();
+                }}
+              >
+                Редагувати фото
+              </Text>
+            ) : (
+              "Завантажити фото"
+            )}
+          </Text>
+          <KeyboardAvoidingView behavior={behavior}>
+            <View
+              style={{
+                ...styles.form,
+                bottom: keyboardStatus ? 30 : 0,
+              }}
+            >
+              <CustomTextInput
+                screen="CreatePost"
+                placeholder="Назва..."
+                keyboardType="name"
+                value={name}
+                onChangeText={handleChangeTextInput}
+                onFocus={() => {
+                  setKeyboardStatus(true);
+                }}
+              />
+              <CustomTextInput
+                screen="CreatePost"
+                placeholder="Місцевість..."
+                keyboardType="locationName"
+                value={locationName}
+                onChangeText={handleChangeTextInput}
+                onFocus={() => {
+                  setKeyboardStatus(true);
+                }}
+                icon="location"
+              />
+            </View>
+            <Button
+              text="Опублікувати"
+              type={name && locationName ? "" : "disabled"}
+              func={handleSubmit}
+            />
+          </KeyboardAvoidingView>
           <TouchableOpacity
+            style={{
+              ...styles.btnTrashContainer,
+              bottom: OS === "iOS" ? -190 : -150,
+            }}
             activeOpacity={0.8}
-            style={styles.btnPhotoWrapper}
-            onPress={handleTakePhotoBtn}
+            onPress={handleTrashBtn}
           >
-            <View style={styles.icnWrapper}>
-              <Icon type="photo" focused={false} size="24" />
+            <View
+              style={{
+                ...styles.btnTrash,
+                backgroundColor: focusedTrash ? "#FF6C00" : "#F6F6F6",
+              }}
+            >
+              <Icon type="trash" size="24" focused={focusedTrash} />
             </View>
           </TouchableOpacity>
-        </Camera>
-        {uri && (
-          <Image
-            style={{ height: 240, ...styles.imgContainer }}
-            source={{ uri }}
-          />
-        )}
-        <Text style={styles.text}>
-          {uri ? "Редагувати фото" : "Завантажити фото"}
-        </Text>
-        <KeyboardAvoidingView behavior={behavior}>
-          <View
-            style={{
-              ...styles.form,
-              bottom: keyboardStatus ? 30 : 0,
-            }}
-          >
-            <CustomTextInput
-              screen="CreatePost"
-              placeholder="Назва..."
-              keyboardType="name"
-              value={name}
-              onChangeText={handleChangeTextInput}
-              onFocus={() => {
-                setKeyboardStatus(true);
-              }}
-            />
-            <CustomTextInput
-              screen="CreatePost"
-              placeholder="Місцевість..."
-              keyboardType="locationName"
-              value={locationName}
-              onChangeText={handleChangeTextInput}
-              onFocus={() => {
-                setKeyboardStatus(true);
-              }}
-              icon="location"
-            />
-          </View>
-          <Button
-            text="Опублікувати"
-            type={name && locationName ? "" : "disabled"}
-            func={handleSubmit}
-          />
-          {error && <Text>{error.message}</Text>}
-        </KeyboardAvoidingView>
-        <TouchableOpacity
-          style={{
-            ...styles.btnTrashContainer,
-            bottom: OS === "iOS" ? -190 : -150,
-          }}
-          activeOpacity={0.8}
-          onPress={handleTrashBtn}
-        >
-          <View
-            style={{
-              ...styles.btnTrash,
-              backgroundColor: focusedTrash ? "#FF6C00" : "#F6F6F6",
-            }}
-          >
-            <Icon type="trash" size="24" focused={focusedTrash} />
-          </View>
-        </TouchableOpacity>
-      </Container>
+        </Container>
+      )}
       {loading && <Spinner bool="false" size="large" color="grey" />}
       {error && <Notification type="error" text={error.message} />}
     </>
