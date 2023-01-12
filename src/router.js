@@ -1,6 +1,7 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
+import { BlurView } from "expo-blur";
 
 import LoginScreen from "./screens/Auth/LoginScreen/LoginScreen";
 import RegistrationScreen from "./screens/Auth/RegistrationScreen/RegistrationScreen";
@@ -41,7 +42,13 @@ export default function useRoute(isAuth) {
   }
 
   return (
-    <MainTab.Navigator>
+    <MainTab.Navigator
+      screenOptions={{
+        headerStyle: { backgroundColor: "red" },
+        tabBarStyle: { position: "absolute" },
+        tabBarActiveBackgroundColor: colors.background,
+      }}
+    >
       <MainTab.Screen
         name="Publications"
         component={PostsScreen}
@@ -64,10 +71,10 @@ export default function useRoute(isAuth) {
       <MainTab.Screen
         name="Профіль"
         component={ProfileScreen}
-        tabBarStyle={{ backgroundColor: "red" }}
         options={{
           headerShown: false,
           tabBarShowLabel: false,
+          tabBarStyle: { position: "absolute" },
           tabBarIcon: ({ focused }) => (
             <Icon type="user" focused={focused} size={focused ? 10 : 40} />
           ),
