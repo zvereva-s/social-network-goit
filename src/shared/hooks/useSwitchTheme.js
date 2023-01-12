@@ -3,7 +3,7 @@ import { Switch } from "react-native";
 
 import { ThemeContext } from "../providers/ThemeProvider";
 
-export default function useSwitchTheme({ side = "" }) {
+export default function useSwitchTheme({ side }) {
   const { colors, isDark, setColorScheme } = useContext(ThemeContext);
   const handleChangeColorTheme = (isTrue) =>
     setColorScheme(isTrue ? "dark" : "light");
