@@ -1,8 +1,16 @@
-import { StyleSheet, View, Text, Image } from "react-native";
+import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
+import useSwitchTheme from "../../../../shared/hooks/useSwitchTheme";
 
-export default function UserInfo({ uri, login, email }) {
+export default function UserInfo({ uri, login, email, navigation }) {
+  const { colors } = useSwitchTheme("default");
   return (
-    <View style={styles.userWrapper}>
+    <TouchableOpacity
+      style={styles.userWrapper}
+      activeOpacity={0.8}
+      onPress={() => {
+        navigation.navigate("Профіль");
+      }}
+    >
       <Image
         style={styles.user}
         source={
@@ -10,10 +18,14 @@ export default function UserInfo({ uri, login, email }) {
         }
       />
       <View style={styles.textWrapper}>
-        <Text style={styles.login}>{login || "login"}</Text>
-        <Text style={styles.email}>{email || "email@email.com"}</Text>
+        <Text style={{ ...styles.login, color: colors.textColor }}>
+          {login || "login"}
+        </Text>
+        <Text style={{ ...styles.email, color: colors.textColor }}>
+          {email || "email@email.com"}
+        </Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }
 
