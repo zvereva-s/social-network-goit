@@ -34,7 +34,6 @@ const fulfilled = (store, { payload }) => {
 const pending = (store, _) => ({ ...initialState, loading: true, error: null });
 const rejected = (store, { payload }) => ({
   ...initialState,
-  loading: false,
   error: payload,
 });
 const isRejectedAction = (action) => {
@@ -53,7 +52,9 @@ const authSlice = createSlice({
       .addCase(authSignIn.fulfilled, fulfilled)
 
       .addCase(authSignOut.pending, pending)
-      .addCase(authSignOut.fulfilled, fulfilled)
+      .addCase(authSignOut.fulfilled, (store, { payload }) => ({
+        ...initialState,
+      }))
 
       .addCase(authCheckAuth.pending, pending)
       .addCase(authCheckAuth.fulfilled, (store, { payload }) => {
