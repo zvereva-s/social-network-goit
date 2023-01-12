@@ -1,16 +1,21 @@
 import React from "react";
 import { StyleSheet, View, Image, TouchableOpacity } from "react-native";
-
+import useSwitchTheme from "../../hooks/useSwitchTheme";
 import Icon from "../Icon/Icon";
 
 export default function UserPhotoView({ uri, chooseThePicture }) {
+  const { isDark } = useSwitchTheme("default");
   return (
     <View style={styles.imageWrapper}>
       {uri && <Image style={styles.avatar} source={{ uri }} />}
       {!uri && (
         <Image
           style={styles.avatar}
-          source={require("../../../../assets/img/userPhoto.png")}
+          source={
+            isDark
+              ? require("../../../../assets/img/userPhoto_negate.png")
+              : require("../../../../assets/img/userPhoto.png")
+          }
         />
       )}
 
