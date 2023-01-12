@@ -5,6 +5,7 @@ import { View, Text } from "react-native";
 import useForm from "../../../shared/hooks/useForm";
 import useKeyboardStatus from "../../../shared/hooks/useKeyboardStatus";
 import useAuth from "../../../shared/hooks/useAuth";
+import useSwitchTheme from "../../../shared/hooks/useSwitchTheme";
 
 import { authSignIn } from "../../../redux/auth/auth-operation";
 
@@ -19,6 +20,7 @@ import { initialState } from "./initialState";
 import { styles } from "./styles";
 
 export default function LoginScreen({ navigation }) {
+  const { switcher, colors } = useSwitchTheme("right");
   const dispatch = useDispatch();
   const { loading, error } = useAuth();
 
@@ -37,6 +39,9 @@ export default function LoginScreen({ navigation }) {
   return (
     <>
       <AuthAndProfileView hideKeyboard={hideKeyboard} behavior={behavior}>
+        <View style={{ position: "absolute", right: 10, top: 10 }}>
+          {switcher}
+        </View>
         <View
           style={{
             marginBottom: 16,
@@ -74,7 +79,7 @@ export default function LoginScreen({ navigation }) {
           />
         </View>
         <Text
-          style={styles.linkPath}
+          style={{ ...styles.linkPath, color: colors.links }}
           onPress={() => {
             navigation.navigate("Registration");
           }}
