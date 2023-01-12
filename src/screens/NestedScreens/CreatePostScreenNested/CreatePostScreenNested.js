@@ -218,7 +218,7 @@ export default function CreatePostScreenNested({ navigation }) {
           </TouchableOpacity>
         </Container>
       )}
-      {loading && <Spinner bool="false" size="large" color="grey" />}
+      {loading && <Spinner bool="false" size="large" />}
       {error && <Notification type="error" text={error.message} />}
     </>
   );
