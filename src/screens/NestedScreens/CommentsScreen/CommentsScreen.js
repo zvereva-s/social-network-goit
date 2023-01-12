@@ -9,6 +9,7 @@ import {
 import useAuth from "../../../shared/hooks/useAuth";
 import useKeyboardStatus from "../../../shared/hooks/useKeyboardStatus";
 import useNavigateButton from "../../../shared/hooks/useNavigateButton";
+import useSwitchTheme from "../../../shared/hooks/useSwitchTheme";
 
 import {
   fetchPostComments,
@@ -27,6 +28,8 @@ import Notification from "../../../shared/components/Notification/Notification";
 import { styles } from "./styles";
 
 export default function CommentsScreen({ route, navigation, commentsArr }) {
+  const { colors } = useSwitchTheme("default");
+
   const { user } = useAuth();
   const { login, photoURL } = user;
 
@@ -103,11 +106,20 @@ export default function CommentsScreen({ route, navigation, commentsArr }) {
         <CommentsList comments={comments} />
       </Container>
       <KeyboardAvoidingView behavior={behavior}>
-        <View style={keyboardStatus ? styles.styleViewInput : styles.inputView}>
+        <View
+          style={
+            keyboardStatus
+              ? { ...styles.styleViewInput, backgroundColor: colors.background }
+              : { ...styles.inputView, backgroundColor: colors.background }
+          }
+        >
           <View
             style={
               keyboardStatus
-                ? { ...styles.styleInput, bottom: OS === "iOS" ? "30%" : "20%" }
+                ? {
+                    ...styles.styleInput,
+                    bottom: OS === "iOS" ? "30%" : "20%",
+                  }
                 : styles.input
             }
           >
@@ -115,6 +127,7 @@ export default function CommentsScreen({ route, navigation, commentsArr }) {
               style={{
                 ...styles.txtInput,
                 paddingTop: OS === "iOS" ? 10 : 0,
+                color: colors.textColor,
               }}
               placeholder="Коментувати..."
               placeholderTextColor="#BDBDBD"
