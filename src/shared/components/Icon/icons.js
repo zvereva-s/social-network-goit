@@ -22,7 +22,7 @@ export const commentIcon = (focused) => {
 `;
 };
 export const arrowLeftIcon = (focused) => {
-  const color = !focused ? "#212121" : "#FF6C00";
+  const color = !focused ? "#BDBDBD" : "#FF6C00";
   return `<svg viewBox="0 0 24 24" fill="none">
 <path d="M20 12H4" stroke="${color}" stroke-opacity="0.8" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M10 18L4 12L10 6" stroke="${color}" stroke-opacity="0.8" stroke-linecap="round" stroke-linejoin="round"/>
