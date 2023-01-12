@@ -4,6 +4,7 @@ import { View, TouchableOpacity, Text } from "react-native";
 
 import useAuth from "../../../shared/hooks/useAuth";
 import useMakePhoto from "../../../shared/hooks/useMakePhoto";
+import useSwitchTheme from "../../../shared/hooks/useSwitchTheme";
 
 import {
   authSignOut,
@@ -23,6 +24,7 @@ import Notification from "../../../shared/components/Notification/Notification";
 import { styles } from "./styles";
 
 export default function ProfileScreen({ navigation }) {
+  const { switcher } = useSwitchTheme("left");
   const { navigate } = navigation;
   const dispatch = useDispatch();
 
@@ -70,6 +72,12 @@ export default function ProfileScreen({ navigation }) {
     <>
       {!makePhoto && (
         <AuthAndProfileView type={userPosts.length !== 0 && "profile"}>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            style={{ ...styles.iconWrapper, left: 10, top: 21 }}
+          >
+            {switcher}
+          </TouchableOpacity>
           <TouchableOpacity
             activeOpacity={0.8}
             onPress={() => {
