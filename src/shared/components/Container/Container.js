@@ -33,16 +33,23 @@ export default function Container({ children, type }) {
 
   const endsMarkup =
     type === "comments" ? (
-      <View style={type === "auth" ? styles.authContainer : styles.container}>
+      <View
+        style={
+          type === "auth"
+            ? { ...styles.authContainer, backgroundColor: colors.background }
+            : { ...styles.container, backgroundColor: colors.background }
+        }
+      >
         {markup}
       </View>
     ) : (
       <TouchableWithoutFeedback onPress={hideKeyboard}>
         <View
-          style={{
-            ...(type === "auth" ? styles.authContainer : styles.container),
-            backgroundColor: colors.background,
-          }}
+          style={
+            type === "auth"
+              ? { ...styles.authContainer, backgroundColor: colors.background }
+              : { ...styles.container, backgroundColor: colors.background }
+          }
         >
           {markup}
         </View>
