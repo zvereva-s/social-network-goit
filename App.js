@@ -4,6 +4,8 @@ import "expo-dev-menu";
 import { LogBox } from "react-native";
 import { Provider } from "react-redux";
 
+import { ThemeProvider } from "./src/shared/providers/ThemeProvider";
+
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 
@@ -35,7 +37,9 @@ export default function App() {
 
   return (
     <Provider store={store}>
-      <Main onLayoutRootView={onLayoutRootView} />
+      <ThemeProvider>
+        <Main onLayoutRootView={onLayoutRootView} />
+      </ThemeProvider>
     </Provider>
   );
 }
