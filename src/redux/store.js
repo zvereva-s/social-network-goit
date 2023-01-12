@@ -8,11 +8,15 @@ export const store = configureStore({
     getDefaultMiddleware({
       serializableCheck: {
         // Ignore these action types
-        ignoredActions: ["auth/signin/fulfilled", "auth/signin/rejected"],
+        ignoredActions: [
+          "auth/signin/fulfilled",
+          "auth/signin/rejected",
+          "auth/updateProfilePhoto/fulfilled",
+        ],
         // Ignore these field paths in all actions
         ignoredActionPaths: ["meta.arg", "payload.multiFactor"],
         // Ignore these paths in the state
-        ignoredPaths: ["error", "payload"],
+        ignoredPaths: ["error", "payload", "User"],
       },
     }),
 });
