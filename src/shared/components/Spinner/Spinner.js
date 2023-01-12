@@ -1,6 +1,8 @@
 import { View, ActivityIndicator } from "react-native";
+import useSwitchTheme from "../../hooks/useSwitchTheme";
 
-export default function Spinner({ bool, size, color }) {
+export default function Spinner({ bool, size }) {
+  const { colors } = useSwitchTheme("default");
   return (
     <View
       style={{
@@ -9,14 +11,14 @@ export default function Spinner({ bool, size, color }) {
 
         top: 0,
         bottom: 0,
-        // flex: 1,
+
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "rgba(255,255,255,0.5)",
+        backgroundColor: colors.spinnerBackground,
         width: "100%",
       }}
     >
-      <ActivityIndicator size={size} bool={bool} color={color} />
+      <ActivityIndicator size={size} bool={bool} color={colors.spinner} />
     </View>
   );
 }
