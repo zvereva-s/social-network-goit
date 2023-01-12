@@ -8,7 +8,7 @@ export default function Notification({ type, text }) {
     Animated.timing(progress, {
       toValue: 0,
       useNativeDriver: true,
-      duration: 20000,
+      duration: 15000,
     }).start();
   }, []);
 
