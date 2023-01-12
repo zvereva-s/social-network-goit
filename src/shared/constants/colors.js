@@ -5,6 +5,8 @@ export const LIGHT_COLORS = {
   thumbColor: "#F6F6F6",
   placeholderColor: "#F6F6F6",
   links: "#1B4371",
+  spinnerBackground: "rgba(255,255,255,0.5)",
+  spinner: "rgb(89, 87, 87)",
 };
 
 export const DARK_COLORS = {
@@ -14,25 +16,6 @@ export const DARK_COLORS = {
   thumbColor: "#fff",
   placeholderColor: "#F6F6F6",
   links: "#A5C1F9",
+  spinnerBackground: "rgba(28, 28, 30, 0.4)",
+  spinner: "#fff",
 };
-
-/*
-white --> dark
-background: #fff - rgb(255, 255, 255)
-photoBtn: #fff - rgb(255, 255, 255)
-
-darkgrey --> white
-titleColor: #212121 - rgb(33, 33, 33)
-txtColor: #212121 - rgb(33, 33, 33)
-
-LightGrey --> white
-backgroundInput: #F6F6F6 - rgb(246, 246, 246)
-createPhotoWrapper: #F6F6F6 - rgb(246, 246, 246)
-commentWrapper: #F6F6F6 - rgb(246, 246, 246)
-
-grey --> grey
-placeholderColor: #BDBDBD - rgb(189, 189, 189)
-
-для инпута не менять цвет текста
-
-*/
