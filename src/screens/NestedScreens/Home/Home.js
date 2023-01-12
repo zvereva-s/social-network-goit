@@ -17,8 +17,6 @@ import Notification from "../../../shared/components/Notification/Notification";
 export default function Home({ route, navigation }) {
   const dispatch = useDispatch();
 
-  const { navigate } = navigation;
-
   const { user } = useAuth();
   const { email, login, photoURL: uri } = user;
 
@@ -36,6 +34,7 @@ export default function Home({ route, navigation }) {
     where: "headerRight",
     icon: "logout",
   });
+
   const asyncHandleFetchingPost = async () => {
     try {
       setLoading(true);
@@ -63,7 +62,12 @@ export default function Home({ route, navigation }) {
   return (
     <>
       <Container>
-        <UserInfo uri={uri} login={login} email={email} />
+        <UserInfo
+          uri={uri}
+          login={login}
+          email={email}
+          navigation={navigation}
+        />
         {loading && (
           <View style={{ alignItems: "center", justifyContent: "center" }}>
             <Text>Loading...</Text>
