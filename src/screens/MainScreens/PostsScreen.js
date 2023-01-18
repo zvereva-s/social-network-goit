@@ -8,12 +8,12 @@ import Home from "../NestedScreens/Home/Home";
 import CommentsScreen from "../NestedScreens/CommentsScreen/CommentsScreen";
 import MapScreen from "../NestedScreens/MapScreen";
 import SwitchBar from "../../shared/components/SwitchBar/SwitchBar";
-import { t } from "i18next";
 
 const NestedScreen = createStackNavigator();
 
 export default function PostsScreen() {
   const { colors } = useSwitchTheme({ side: "left" });
+  const { t } = useTranslate();
 
   return (
     <NestedScreen.Navigator
