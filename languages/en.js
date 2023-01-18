@@ -23,6 +23,7 @@ export const en = {
   //postsScreen
   headerHome: "Publications",
   headerComments: "Comments",
+  headerMap: "Map",
 
   //comments
   toComment: "To comment...",
