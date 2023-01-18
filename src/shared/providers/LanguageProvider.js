@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { en } from "../../../languages/en";
-import { ua } from "../../../languages/ua";
+import { en } from "../../../assets/languages/en";
+import { ua } from "../../../assets/languages/ua";
 
 export const LanguageContext = React.createContext({
   isEn: false,
