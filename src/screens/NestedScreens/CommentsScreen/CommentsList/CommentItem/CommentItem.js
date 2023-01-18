@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useLayoutEffect } from "react";
 import { View, Image, Text } from "react-native";
 
 import useSwitchTheme from "../../../../../shared/hooks/useSwitchTheme";
@@ -14,6 +14,10 @@ export default function CommentItem({ photoURL, comment, modulo, dateID }) {
 
   const [lang, setLang] = useState(isEn ? "en" : "ua");
   const [date, setDate] = useState(handleTranslatingDate(dateID, lang));
+
+  useLayoutEffect(() => {
+    setDate(handleTranslatingDate(dateID, lang));
+  }, [lang]);
 
   return (
     <View
