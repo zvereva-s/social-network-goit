@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
 } from "react-native";
+
 import { Camera } from "expo-camera";
 import * as Location from "expo-location";
 
@@ -21,7 +22,6 @@ import {
   takePhoto,
   uploadPhotoToServer,
 } from "../../../shared/api/api-uploadImages";
-
 import { postPost } from "../../../shared/api/api-posts";
 
 import Container from "../../../shared/components/Container/Container";
@@ -116,13 +116,14 @@ export default function CreatePostScreenNested({ navigation }) {
         setError("Permission to access location was denied");
         return;
       }
-
       let location = await Location.getCurrentPositionAsync({});
+
       setLocation({
         latitude: location.coords.latitude,
         longitude: location.coords.longitude,
       });
     })();
+
     return () => {
       removeListener();
     };
