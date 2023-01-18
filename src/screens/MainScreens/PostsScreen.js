@@ -27,7 +27,7 @@ export default function PostsScreen() {
         name="Публікації"
         component={Home}
         options={{
-          title: t("headerHome"),
+          title: t.headerHome,
           headerLeft: () => <SwitchBar />,
           headerTintColor: colors.textColor,
           headerStyle: {
@@ -39,13 +39,17 @@ export default function PostsScreen() {
         name="Коментарі"
         component={CommentsScreen}
         options={{
-          title: t("headerComments"),
+          title: t.headerComments,
           headerRight: () => <SwitchBar />,
           headerTintColor: colors.textColor,
           headerStyle: { backgroundColor: colors.background },
         }}
       />
-      <NestedScreen.Screen name="Карта" component={MapScreen} />
+      <NestedScreen.Screen
+        name="Карта"
+        component={MapScreen}
+        options={{ title: t.headerMap }}
+      />
     </NestedScreen.Navigator>
   );
 }
