@@ -14,7 +14,7 @@ export const DARK_COLORS = {
   textColor: "rgb(242, 242, 247)",
   inputTxtColor: "#212121",
   thumbColor: "#fff",
-  placeholderColor: "#F6F6F6",
+  placeholderColor: "rgb(209, 209, 209)",
   links: "#A5C1F9",
   spinnerBackground: "rgba(28, 28, 30, 0.4)",
   spinner: "#fff",

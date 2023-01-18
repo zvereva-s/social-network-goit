@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Keyboard, KeyboardAvoidingView } from "react-native";
+import { Keyboard } from "react-native";
 import * as Device from "expo-device";
 
 export default function useKeyboardStatus() {

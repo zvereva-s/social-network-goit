@@ -5,7 +5,7 @@ import { View, TouchableOpacity, Text } from "react-native";
 import useAuth from "../../../shared/hooks/useAuth";
 import useMakePhoto from "../../../shared/hooks/useMakePhoto";
 import useSwitchTheme from "../../../shared/hooks/useSwitchTheme";
-import useKeyboardStatus from "../../../shared/hooks/useKeyboardStatus";
+import useTranslate from "../../../shared/hooks/useTranslate";
 
 import {
   authSignOut,
@@ -25,8 +25,8 @@ import Notification from "../../../shared/components/Notification/Notification";
 import { styles } from "./styles";
 
 export default function ProfileScreen({ navigation }) {
-  const { OS } = useKeyboardStatus();
-  const { switcher, colors } = useSwitchTheme("left");
+  const { t } = useTranslate();
+  const { colors } = useSwitchTheme("left");
   const { navigate } = navigation;
   const dispatch = useDispatch();
 
@@ -76,19 +76,6 @@ export default function ProfileScreen({ navigation }) {
         <AuthAndProfileView type={userPosts.length !== 0 && "profile"}>
           <TouchableOpacity
             activeOpacity={0.8}
-            style={{
-              ...styles.iconWrapper,
-              left: OS === "iOS" ? 20 : 0,
-              top: OS === "iOS" ? 20 : 10,
-              paddingRight: OS === "iOS" ? 0 : 10,
-              height: 50,
-              width: 80,
-            }}
-          >
-            {switcher}
-          </TouchableOpacity>
-          <TouchableOpacity
-            activeOpacity={0.8}
             onPress={() => {
               dispatch(authSignOut());
             }}
@@ -110,16 +97,14 @@ export default function ProfileScreen({ navigation }) {
           </View>
           {userPosts.length === 0 && !error && (
             <>
-              <Text style={{ color: colors.textColor }}>
-                You have not yet any posts
-              </Text>
+              <Text style={{ color: colors.textColor }}>{t.txtAnyPosts}</Text>
               <Text
                 style={{ color: "#FF6C00" }}
                 onPress={() => {
                   navigate("CreatePost");
                 }}
               >
-                To make a post
+                {t.txtMakePost}
               </Text>
             </>
           )}

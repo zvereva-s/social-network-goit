@@ -15,6 +15,7 @@ import useDimensions from "../../../shared/hooks/useDimensions";
 import useAuth from "../../../shared/hooks/useAuth";
 import useForm from "../../../shared/hooks/useForm";
 import useMakePhoto from "../../../shared/hooks/useMakePhoto";
+import useTranslate from "../../../shared/hooks/useTranslate";
 
 import {
   takePhoto,
@@ -35,15 +36,18 @@ import { styles } from "./styles";
 
 export default function CreatePostScreenNested({ navigation }) {
   const { navigate } = navigation;
+  const { t } = useTranslate();
 
   const { makePhoto, uri, setUri, chooseThePicture, markup } = useMakePhoto();
   const { user } = useAuth();
   const { userID, login } = user;
+
   const { state, handleChangeTextInput, handleSubmit } = useForm({
     initialState,
     onSubmit,
   });
   const { name, locationName } = state;
+
   const { handleNavigateButton } = useNavigateButton({
     navigation,
     func: handleNavButton,
@@ -158,10 +162,10 @@ export default function CreatePostScreenNested({ navigation }) {
                   handleTakePhotoBtn();
                 }}
               >
-                Редагувати фото
+                {t.editPhoto}
               </Text>
             ) : (
-              "Завантажити фото"
+              t.downloadPhoto
             )}
           </Text>
           <KeyboardAvoidingView behavior={behavior}>
@@ -173,7 +177,7 @@ export default function CreatePostScreenNested({ navigation }) {
             >
               <CustomTextInput
                 screen="CreatePost"
-                placeholder="Назва..."
+                placeholder={t.name}
                 keyboardType="name"
                 value={name}
                 onChangeText={handleChangeTextInput}

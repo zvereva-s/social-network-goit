@@ -34,59 +34,64 @@ export const createOperationForBuilder = (name, request, condition) => {
   );
 };
 
-export function handleDate() {
+export function handleTranslatingDate(date, lang) {
   const OS = Device.osName;
+  let updDate;
 
-  const time = new Date().toLocaleTimeString().slice(0, 5);
+  const dDMmYyyy = new Date(date).toLocaleDateString("pt-BR");
+  const time = new Date(date).toLocaleTimeString().slice(0, 5);
 
-  const dateArr =
-    OS === "iOS"
-      ? new Date().toLocaleDateString().split(".")
-      : new Date().toLocaleDateString().split("/");
+  const mm = OS === "iOS" ? dDMmYyyy.split("/")[1] : dDMmYyyy.split("/")[0];
 
-  if (dateArr[2].length < 4) {
-    dateArr[2] = dateArr[2].replace(dateArr[2], `20${dateArr[2]}`);
-  }
-
-  switch (dateArr[1]) {
+  switch (mm) {
     case "01":
-      dateArr[1] = "января,";
+      updDate = dDMmYyyy.replace(mm, lang === "ua" ? "січня," : "January");
       break;
     case "02":
-      dateArr[1] = "февраля,";
+      updDate = dDMmYyyy.replace(mm, lang === "ua" ? "лютого," : "February");
       break;
     case "03":
-      dateArr[1] = "марта,";
+      updDate = dDMmYyyy.replace(mm, lang === "ua" ? "березня," : "March");
       break;
     case "04":
-      dateArr[1] = "апреля,";
+      updDate = dDMmYyyy.replace(mm, lang === "ua" ? "квітня," : "April");
       break;
     case "05":
-      dateArr[1] = "мая,";
+      updDate = dDMmYyyy.replace(mm, lang === "ua" ? "травня," : "May");
       break;
     case "06":
-      dateArr[1] = "июня,";
+      updDate = dDMmYyyy.replace(mm, lang === "ua" ? "червня," : "June");
       break;
     case "07":
-      dateArr[1] = "июля,";
+      updDate = dDMmYyyy.replace(mm, lang === "ua" ? "липня," : "July");
       break;
     case "08":
-      dateArr[1] = "августа,";
+      updDate = dDMmYyyy.replace(mm, lang === "ua" ? "серпня," : "August");
       break;
     case "09":
-      dateArr[1] = "сентября,";
+      updDate = dDMmYyyy.replace(mm, lang === "ua" ? "вересня," : "September");
       break;
     case "10":
-      dateArr[1] = "октября,";
+      updDate = dDMmYyyy.replace(mm, lang === "ua" ? "жовтня," : "October");
       break;
     case "11":
-      dateArr[1] = "ноября,";
+      updDate = dDMmYyyy.replace(mm, lang === "ua" ? "листопада," : "November");
       break;
     case "12":
-      dateArr[1] = "декабря,";
+      updDate = dDMmYyyy.replace(mm, lang === "ua" ? "грудня," : "December");
       break;
   }
 
-  const dateString = dateArr.join(" ");
-  return `${dateString} | ${time}`;
+  const androidArr = updDate.split("/");
+  const andrDate = [
+    androidArr[1],
+    androidArr[0],
+    "20" + androidArr[2],
+    "|",
+    time,
+  ].join(" ");
+
+  return OS === "iOS"
+    ? [...(updDate?.split("/") || ""), "|", time].join(" ")
+    : andrDate;
 }

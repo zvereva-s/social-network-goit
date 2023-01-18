@@ -6,6 +6,7 @@ import useMakePhoto from "../../../shared/hooks/useMakePhoto";
 import useForm from "../../../shared/hooks/useForm";
 import useAuth from "../../../shared/hooks/useAuth";
 import useSwitchTheme from "../../../shared/hooks/useSwitchTheme";
+import useTranslate from "../../../shared/hooks/useTranslate";
 
 import { authSignUp } from "../../../redux/auth/auth-operation";
 import { uploadPhotoToServer } from "../../../shared/api/api-uploadImages";
@@ -22,7 +23,9 @@ import { initialState } from "./initialState";
 import { styles } from "./styles";
 
 export default function RegistrationScreen({ navigation }) {
-  const { switcher, colors } = useSwitchTheme("right");
+  const { t } = useTranslate();
+
+  const { colors } = useSwitchTheme();
   const dispatch = useDispatch();
   const { loading, error } = useAuth();
 
@@ -47,9 +50,6 @@ export default function RegistrationScreen({ navigation }) {
     <>
       {!makePhoto && (
         <AuthAndProfileView>
-          <View style={{ position: "absolute", right: 10, top: 10 }}>
-            {switcher}
-          </View>
           <UserPhotoView uri={uri} chooseThePicture={chooseThePicture} />
           <View
             style={{
@@ -57,23 +57,23 @@ export default function RegistrationScreen({ navigation }) {
               marginBottom: 16,
             }}
           >
-            <Title text="Регістрація" />
+            <Title text={t.registerTitle} />
           </View>
           <CustomTextInput
-            placeholder="Логін"
+            placeholder={t.login}
             onChangeText={handleChangeTextInput}
             keyboardType="login"
             value={login}
           />
           <CustomTextInput
-            placeholder="Адреса електронної пошти"
+            placeholder={t.email}
             onChangeText={handleChangeTextInput}
             keyboardType="email"
             pattern="/^[a-zA-Z0-9]+@(?:[a-zA-Z0-9]+\.)+[A-Za-z]+$/"
             value={email}
           />
           <CustomTextInput
-            placeholder="Пароль"
+            placeholder={t.password}
             onChangeText={handleChangeTextInput}
             keyboardType="password"
             pattern="/^[a-zA-Z0-9!@#$%^&*]{6,16}$/"
@@ -89,7 +89,7 @@ export default function RegistrationScreen({ navigation }) {
             }}
           >
             <Button
-              text="Зареєструватися"
+              text={t.registerBtn}
               func={handleSubmit}
               type={email && login && password ? "" : "disabled"}
             />
@@ -100,7 +100,7 @@ export default function RegistrationScreen({ navigation }) {
               navigation.navigate("Login");
             }}
           >
-            Вже є аккаунт? Ввійти
+            {t.linkToSignIn}
           </Text>
         </AuthAndProfileView>
       )}

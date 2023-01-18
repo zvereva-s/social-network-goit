@@ -10,12 +10,12 @@ import useAuth from "../../../shared/hooks/useAuth";
 import useKeyboardStatus from "../../../shared/hooks/useKeyboardStatus";
 import useNavigateButton from "../../../shared/hooks/useNavigateButton";
 import useSwitchTheme from "../../../shared/hooks/useSwitchTheme";
+import useTranslate from "../.././../shared/hooks/useTranslate";
 
 import {
   fetchPostComments,
   handleComment,
 } from "../../../shared/api/api-comments";
-import { handleDate } from "../../../shared/utils/utils";
 
 import CommentsList from "./CommentsList/CommentsList";
 
@@ -29,6 +29,7 @@ import { styles } from "./styles";
 
 export default function CommentsScreen({ route, navigation, commentsArr }) {
   const { colors } = useSwitchTheme("default");
+  const { t } = useTranslate();
 
   const { user } = useAuth();
   const { login, photoURL } = user;
@@ -40,8 +41,6 @@ export default function CommentsScreen({ route, navigation, commentsArr }) {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
-  const [date, setDate] = useState(handleDate());
 
   const { photo, id } = route?.params;
 
@@ -75,7 +74,6 @@ export default function CommentsScreen({ route, navigation, commentsArr }) {
       await handleComment(id, {
         comment,
         login,
-        date,
         dateID: Date.now(),
         photoURL,
       });
@@ -129,7 +127,7 @@ export default function CommentsScreen({ route, navigation, commentsArr }) {
                 paddingTop: OS === "iOS" ? 10 : 0,
                 color: colors.textColor,
               }}
-              placeholder="Коментувати..."
+              placeholder={t.toComment}
               placeholderTextColor="#BDBDBD"
               multiline={true}
               value={comment}

@@ -15,6 +15,7 @@ import { gridIcon } from "./icons";
 import { userIcon } from "./icons";
 import { plusIcon } from "./icons";
 import { arrowUpIcon } from "./icons";
+import { langIcon } from "./icons.js";
 
 export default function Icon({ type, focused, size, inversia, isDark }) {
   let xml;
@@ -57,6 +58,9 @@ export default function Icon({ type, focused, size, inversia, isDark }) {
       break;
     case "arrowUp":
       xml = arrowUpIcon(focused);
+      break;
+    case "lang":
+      xml = langIcon(focused);
       break;
   }
 

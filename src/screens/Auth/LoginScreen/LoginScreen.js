@@ -6,6 +6,7 @@ import useForm from "../../../shared/hooks/useForm";
 import useKeyboardStatus from "../../../shared/hooks/useKeyboardStatus";
 import useAuth from "../../../shared/hooks/useAuth";
 import useSwitchTheme from "../../../shared/hooks/useSwitchTheme";
+import useTranslate from "../../../shared/hooks/useTranslate";
 
 import { authSignIn } from "../../../redux/auth/auth-operation";
 
@@ -20,7 +21,8 @@ import { initialState } from "./initialState";
 import { styles } from "./styles";
 
 export default function LoginScreen({ navigation }) {
-  const { switcher, colors } = useSwitchTheme("right");
+  const { t } = useTranslate();
+  const { colors } = useSwitchTheme("right");
   const dispatch = useDispatch();
   const { loading, error } = useAuth();
 
@@ -39,25 +41,22 @@ export default function LoginScreen({ navigation }) {
   return (
     <>
       <AuthAndProfileView hideKeyboard={hideKeyboard} behavior={behavior}>
-        <View style={{ position: "absolute", right: 10, top: 10 }}>
-          {switcher}
-        </View>
         <View
           style={{
             marginBottom: 16,
           }}
         >
-          <Title text="Ввійти" />
+          <Title text={t.loginTitle} />
         </View>
         <CustomTextInput
-          placeholder="Адреса електронної пошти"
+          placeholder={t.email}
           onChangeText={handleChangeTextInput}
           keyboardType="email"
           pattern="/^[a-zA-Z0-9]+@(?:[a-zA-Z0-9]+\.)+[A-Za-z]+$/"
           value={email}
         />
         <CustomTextInput
-          placeholder="Пароль"
+          placeholder={t.password}
           onChangeText={handleChangeTextInput}
           keyboardType="password"
           pattern="/^[a-zA-Z0-9!@#$%^&*]{6,16}$/"
@@ -73,7 +72,7 @@ export default function LoginScreen({ navigation }) {
           }}
         >
           <Button
-            text="Ввійти"
+            text={t.loginBtn}
             func={handleSubmit}
             type={email && password ? "" : "disabled"}
           />
@@ -84,7 +83,7 @@ export default function LoginScreen({ navigation }) {
             navigation.navigate("Registration");
           }}
         >
-          Немає аккаунту? Зареєструватися
+          {t.linkToSignUp}
         </Text>
       </AuthAndProfileView>
       {loading && <Spinner bool="false" size="large" color="grey" />}

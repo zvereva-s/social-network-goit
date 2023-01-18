@@ -4,6 +4,7 @@ import { TextInput, Text, View } from "react-native";
 import useHandleValidateInput from "../../hooks/useHandleValidateInput";
 import useKeyboardStatus from "../../hooks/useKeyboardStatus";
 import useSwitchTheme from "../../hooks/useSwitchTheme";
+import useTranslate from "../../hooks/useTranslate";
 
 import Icon from "../Icon/Icon";
 
@@ -23,9 +24,13 @@ export default function CustomTextInput(props) {
     icon,
   } = props;
 
+  const [txtLink, setTxtLink] = useState(false);
+
   const [inputActive, setInputActive] = useState(false);
   const [secureTextEntry, setSecureTextEntry] = useState(secureTextEntryStart);
   const [inputValue, setInputValue] = useState("");
+
+  const { t } = useTranslate();
 
   const { errValidation, setErrValidation, handleValidateInput } =
     useHandleValidateInput({
@@ -60,6 +65,7 @@ export default function CustomTextInput(props) {
   };
   const styleInputForPost = icon === "location" ? "postInputicon" : "postInput";
   const styleInput = screen === "CreatePost" ? styleInputForPost : "input";
+
   return (
     <View style={{ position: "relative", width: "100%" }}>
       <TextInput
@@ -68,11 +74,11 @@ export default function CustomTextInput(props) {
             ? {
                 ...styles[styleInput],
                 ...styles[`${styleInput}Active`],
-                backgroundColor: colors.thumbColor,
+                backgroundColor: colors.placeholderColor,
               }
             : {
                 ...styles[styleInput],
-                backgroundColor: colors.thumbColor,
+                backgroundColor: colors.placeholderColor,
               }
         }
         placeholder={placeholder}
@@ -98,10 +104,14 @@ export default function CustomTextInput(props) {
       )}
       {link && (
         <Text
-          onPress={() => setSecureTextEntry(!secureTextEntry)}
+          onPress={() => {
+            setSecureTextEntry(!secureTextEntry);
+            setTxtLink(!txtLink);
+          }}
           style={styles.linkShow}
         >
-          Показати
+          {!txtLink && t.show}
+          {txtLink && t.close}
         </Text>
       )}
     </View>

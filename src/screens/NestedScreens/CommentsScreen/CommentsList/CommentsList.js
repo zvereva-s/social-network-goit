@@ -5,6 +5,7 @@ import CommentItem from "./CommentItem/CommentItem";
 export default function CommentsList({ comments }) {
   return (
     <FlatList
+      style={{ maxHeight: "53%" }}
       data={comments}
       keyExtractor={({ id }) => id}
       renderItem={({ item, index }) => {
@@ -15,6 +16,7 @@ export default function CommentsList({ comments }) {
             comment={item.comment}
             date={item.date}
             modulo={modulo}
+            dateID={item.dateID}
           />
         );
       }}

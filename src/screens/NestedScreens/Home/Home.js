@@ -1,6 +1,5 @@
 import { useState, useEffect, useLayoutEffect } from "react";
 import { useDispatch } from "react-redux";
-import { Text, View } from "react-native";
 
 import useAuth from "../../../shared/hooks/useAuth";
 import useNavigateButton from "../../../shared/hooks/useNavigateButton";
@@ -68,11 +67,6 @@ export default function Home({ route, navigation }) {
           email={email}
           navigation={navigation}
         />
-        {loading && (
-          <View style={{ alignItems: "center", justifyContent: "center" }}>
-            <Text>Loading...</Text>
-          </View>
-        )}
         <PostsList posts={posts} comments={comments} navigation={navigation} />
       </Container>
       {loading && <Spinner bool="false" size="large" color="grey" />}

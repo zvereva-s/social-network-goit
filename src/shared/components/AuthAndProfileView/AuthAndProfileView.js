@@ -4,6 +4,8 @@ import Container from "../Container/Container";
 import useKeyboardStatus from "../../hooks/useKeyboardStatus";
 import useSwitchTheme from "../../hooks/useSwitchTheme";
 
+import SwitchBar from "../SwitchBar/SwitchBar";
+
 import { styles } from "./styles";
 
 export default function AuthAndProfileView({ children, type }) {
@@ -29,6 +31,15 @@ export default function AuthAndProfileView({ children, type }) {
               top: type === "profile" ? 200 : 0,
             }}
           >
+            <View
+              style={{
+                position: "absolute",
+                top: 10,
+                [type == "profile" ? "left" : "right"]: 0,
+              }}
+            >
+              <SwitchBar />
+            </View>
             {children}
           </View>
         </KeyboardAvoidingView>
