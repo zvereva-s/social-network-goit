@@ -6,6 +6,7 @@ export const LanguageContext = React.createContext({
   isEn: false,
   t: ua,
   setLangSchema: () => {},
+  selected: { label: "🇺🇦 UA", value: "ua" },
 });
 
 export const LanguageProvider = ({ children }) => {
@@ -16,9 +17,11 @@ export const LanguageProvider = ({ children }) => {
     isEn,
     t: isEn ? en : ua,
     setLangSchema: (schema) => {
-      console.log({ schema });
       setIsEn(schema === "en");
     },
+    selected: isEn
+      ? { label: "🇬🇧 EN", value: "en" }
+      : { label: "🇺🇦 UA", value: "ua" },
   };
 
   return (

@@ -1,19 +1,11 @@
-import { useState, useEffect, useContext } from "react";
+import { useContext } from "react";
 
 import { LanguageContext } from "../providers/LanguageProvider";
 
+import { data } from "../../../languages/dataLanguages";
+
 export default function useTranslate() {
-  const { isEn, t, setLangSchema } = useContext(LanguageContext);
+  const { isEn, t, setLangSchema, selected } = useContext(LanguageContext);
 
-  // const [selected, setSelected] = useState(
-  //   isEn !== "en"
-  //     ? { label: "🇺🇦 UA", value: "ua" }
-  //     : { label: "🇬🇧 EN", value: "en" }
-  // );
-
-  // useEffect(() => {
-  //   setLangSchema(selected.value);
-  // }, [selected.value]);
-
-  return { isEn, setLangSchema, t };
+  return { isEn, setLangSchema, t, selected, data };
 }

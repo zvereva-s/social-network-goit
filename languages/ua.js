@@ -32,4 +32,10 @@ export const ua = {
   editPhoto: "Редагувати фото",
   downloadPhoto: "Завантажити фото",
   name: "Назва",
+  location: "Місцевість",
+  pushPost: "Опублікувати",
+
+  //makePhoto
+  addPhoto: "Додати",
+  discardPhoto: "Відмінити",
 };

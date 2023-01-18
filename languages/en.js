@@ -32,4 +32,10 @@ export const en = {
   editPhoto: "Edit photo",
   downloadPhoto: "Download photo",
   name: "Name",
+  location: "Location",
+  pushPost: "Post",
+
+  //makePhoto
+  addPhoto: "Add",
+  discardPhoto: "Discard",
 };

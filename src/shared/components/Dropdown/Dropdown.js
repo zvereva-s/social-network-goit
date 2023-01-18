@@ -11,19 +11,13 @@ import {
 
 import useSwitchTheme from "../../hooks/useSwitchTheme";
 
-export default function Dropdown({ data, onSelect, OS, isEn }) {
+export default function Dropdown({ data, onSelect, OS, selected }) {
   const { colors } = useSwitchTheme();
   const DropdownButton = useRef();
   const [visible, setVisible] = useState(false);
-  const [selected, setSelected] = useState(
-    isEn === data[0].value ? data[1] : data[0]
-  );
+  const [select, setSelect] = useState(selected);
 
   const [dropdownTop, setDropdownTop] = useState(0);
-
-  //! delete
-  console.log({ selected });
-  console.log({ isEn });
 
   const toggleDropdown = () => {
     visible ? setVisible(false) : openDropdown();
@@ -37,7 +31,7 @@ export default function Dropdown({ data, onSelect, OS, isEn }) {
   };
 
   const onItemPress = (item) => {
-    setSelected(item);
+    setSelect(item);
     onSelect(item.value);
     setVisible(false);
   };

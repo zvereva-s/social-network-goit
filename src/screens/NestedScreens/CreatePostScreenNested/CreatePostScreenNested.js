@@ -187,7 +187,7 @@ export default function CreatePostScreenNested({ navigation }) {
               />
               <CustomTextInput
                 screen="CreatePost"
-                placeholder="Місцевість..."
+                placeholder={t.location}
                 keyboardType="locationName"
                 value={locationName}
                 onChangeText={handleChangeTextInput}
@@ -198,7 +198,7 @@ export default function CreatePostScreenNested({ navigation }) {
               />
             </View>
             <Button
-              text="Опублікувати"
+              text={t.pushPost}
               type={name && locationName ? "" : "disabled"}
               func={handleSubmit}
             />

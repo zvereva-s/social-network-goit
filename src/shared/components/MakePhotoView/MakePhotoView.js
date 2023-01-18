@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { View, Text, TouchableOpacity, Image } from "react-native";
 import { Camera, CameraType } from "expo-camera";
+
+import useTranslate from "../../hooks/useTranslate";
 
 import { takePhoto } from "../../api/api-uploadImages";
 import { styles } from "./styles";
@@ -9,6 +11,8 @@ import Icon from "../Icon/Icon";
 import Button from "../Button/Button";
 
 export default function MakePhotoView({ setUri, setMakePhoto }) {
+  const { t } = useTranslate();
+
   const [type, setType] = useState(CameraType.back);
   const [permission, requestPermission] = Camera.useCameraPermissions();
   const [camera, setCamera] = useState("");
@@ -57,7 +61,7 @@ export default function MakePhotoView({ setUri, setMakePhoto }) {
             }}
           >
             <Button
-              text="Add photo"
+              text={t.addPhoto}
               type="makePhoto"
               func={() => {
                 setUri(photo);
@@ -75,7 +79,7 @@ export default function MakePhotoView({ setUri, setMakePhoto }) {
             }}
           >
             <Button
-              text="Discard"
+              text={t.discardPhoto}
               type="discard"
               func={() => {
                 setPhoto(false);

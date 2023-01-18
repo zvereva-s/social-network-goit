@@ -1,4 +1,4 @@
-export const dataLanguages = [
+export const data = [
   { label: "🇺🇦 UA", value: "ua" },
   { label: "🇬🇧 EN", value: "en" },
 ];

@@ -7,12 +7,10 @@ import useTranslate from "../../hooks/useTranslate";
 
 import Dropdown from "../Dropdown/Dropdown";
 
-import { dataLanguages } from "./dataLanguages";
-
 export default function SwitchBar() {
   const { OS } = useKeyboardStatus();
   const { switcher } = useSwitchTheme();
-  const { setLangSchema, isEn } = useTranslate();
+  const { setLangSchema, data, selected } = useTranslate();
 
   return (
     <View
@@ -31,9 +29,9 @@ export default function SwitchBar() {
       {switcher}
       <Dropdown
         OS={OS}
-        data={dataLanguages}
         onSelect={setLangSchema}
-        isEn={isEn}
+        selected={selected}
+        data={data}
       />
     </View>
   );
