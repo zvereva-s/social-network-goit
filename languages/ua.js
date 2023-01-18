@@ -23,6 +23,7 @@ export const ua = {
   //postsScreen
   headerHome: "Публікації",
   headerComments: "Коментарі",
+  headerMap: "Карта",
 
   //comments
   toComment: "Коментувати...",
