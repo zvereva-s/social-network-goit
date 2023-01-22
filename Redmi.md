@@ -4,7 +4,7 @@ iOS preview
 
 exp://u.expo.dev/update/de25e74f-9ea6-44dc-b184-a0fdd4de696c
 
-Android preview
+Android previewexpodev
 
 <img src="./assets/img/androidPreview.jpg">
 

@@ -13,30 +13,33 @@
     },
     "updates": {
       "fallbackToCacheTimeout": 0,
-      "url": "https://u.expo.dev/e04f26c0-032f-40b6-ac36-8b0626383fd6"
+      "url": "https://u.expo.dev/4a599954-f8c7-4aa9-bd84-2a08c985a2d7"
     },
     "assetBundlePatterns": [
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.zvereva.socialnetworkgoit"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.zvereva.socialnetworkgoit"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "extra": {
       "eas": {
-        "projectId": "e04f26c0-032f-40b6-ac36-8b0626383fd6"
+        "projectId": "4a599954-f8c7-4aa9-bd84-2a08c985a2d7"
       }
     },
     "runtimeVersion": {
       "policy": "appVersion"
-    }
+    },
+    "owner": "zvereva"
   }
 }
