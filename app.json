@@ -37,9 +37,9 @@
         "projectId": "4a599954-f8c7-4aa9-bd84-2a08c985a2d7"
       }
     },
-    // "runtimeVersion": {
-    //   "policy": "appVersion"
-    // },
-    "owner": "zvereva"
+    "owner": "zvereva",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    }
   }
 }
