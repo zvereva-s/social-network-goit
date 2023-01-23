@@ -6,12 +6,14 @@
     </thead>
     <tbody>
         <tr>
-        <th>iOS</th>
-            <td><img src='./assets/img/ios react-native/iOS react-native.gif' width='250'/></td>
+            <td>iOS</td>
+            <td>Android</td>
         </tr>
         <tr>
-        <th>iOS</th>
-            <td><img src='./assets/img/ios react-native/iOS react-native.gif' width='250'/></td>
+            <td><img src='./assets/img/ios react-native/iOS react-native.gif' width='250'/>
+</td>
+            <td><img src='./assets/img/ios react-native/iOS react-native.gif' width='250'/>
+</td>
         </tr>
     </tbody>
 </table>
