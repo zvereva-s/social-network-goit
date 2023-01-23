@@ -1,11 +1,4 @@
 iOS preview
 
-<img src="./assets/img/osPreview.jpg">
-
-exp://u.expo.dev/update/de25e74f-9ea6-44dc-b184-a0fdd4de696c
-
-Android previewexpodev
-
-<img src="./assets/img/androidPreview.jpg">
-
-exp://u.expo.dev/update/ead3fa9e-dc22-487a-8246-8eca882222a9
+<b> Screens </b>
+<img src='./assets/img/ios react-native/Simulator Screen Shot - iPhone 13 - 2023-01-23 at 14.45.50.png' width='250'/>

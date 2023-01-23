@@ -79,7 +79,13 @@ export default function ProfileScreen({ navigation }) {
             onPress={() => {
               dispatch(authSignOut());
             }}
-            style={{ ...styles.iconWrapper, right: 10, top: 21 }}
+            style={{
+              ...styles.iconWrapper,
+
+              [userPosts.length !== 0 ? "right" : "left"]:
+                userPosts.length !== 0 ? 10 : 20,
+              top: 10,
+            }}
           >
             <Icon type="logout" focused={false} size="25" />
           </TouchableOpacity>
