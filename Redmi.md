@@ -25,5 +25,9 @@
             <td><img src='./assets/img/android react-native/qr code android.jpg'/>
 </td>
         </tr>
+         <tr>
+            <td>exp://u.expo.dev/update/ff32502a-08a8-4d33-bc72-afb0f21542ba</td>
+            <td>exp://u.expo.dev/update/a0902c37-dd02-4965-8e60-da3ddc5a9de4</td>
+        </tr>
     </tbody>
 </table>
