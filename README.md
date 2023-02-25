@@ -10,9 +10,9 @@
             <td>Android</td>
         </tr>
         <tr>
-            <td><img src='./assets/img/ios react-native/iOS react-native.gif' width='450'/>
+            <td><img src='./assets/img/ios react-native/iOS react-native.gif' width='250'/>
 </td>
-            <td><img src='./assets/img/android react-native/android react-native.gif' width='450'/>
+            <td><img src='./assets/img/android react-native/android react-native.gif' width='250'/>
 </td>
         </tr>
          <tr>
