@@ -1,5 +1,5 @@
 
-<h1>Prototype Social network - Mobile App</h1>
+<h1>Prototype of social network - Mobile App - iOS & Android</h1>
 
 
 <p> It is a cross-platform mobile app for iOS and Android users. The main idea is a social network with usual abilities for users: upload/take pictures, to text a comment, to get location etc. </p>
@@ -12,6 +12,11 @@ You can see come points:
 - make a picture by phone;
 - get location;
 
+<h3>For the running this project on your phone</h3>
+<ol>
+    <li>Be sure that you have the Expo Go app on your phone</li>
+    <li>If you use iPhone - scan the QR-code by camera</li>
+    <li>If you use Android - open the Expo Go and scan QR-code</li>
 
 <table>
     <thead>
@@ -46,3 +51,5 @@ You can see come points:
         </tr>
     </tbody>
 </table>
+
+
