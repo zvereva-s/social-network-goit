@@ -12,11 +12,7 @@ You can see come points:
 - make a picture by phone;
 - get location;
 
-<h3>For the running this project on your phone</h3>
-<ol>
-    <li>Be sure that you have the Expo Go app on your phone</li>
-    <li>If you use iPhone - scan the QR-code by camera</li>
-    <li>If you use Android - open the Expo Go and scan QR-code</li>
+Below you can see short preview for this project: 
 
 <table>
     <thead>
@@ -52,4 +48,9 @@ You can see come points:
     </tbody>
 </table>
 
+<h3>For the running this project on your phone</h3>
+<ol>
+    <li>Be sure that you have the Expo Go app on your phone</li>
+    <li>If you use iPhone - scan the QR-code by camera</li>
+    <li>If you use Android - open the Expo Go and scan QR-code</li>
 
