@@ -2,6 +2,17 @@
 <h1>Prototype Social network - Mobile App</h1>
 
 
+<p> It is a cross-platform mobile app for iOS and Android users. The main idea is a social network with usual abilities for users: upload/take pictures, to text a comment, to get location etc. </p>
+
+You can see come points: 
+
+- two languages;
+- light/dark theme;
+- upload photo from phone;
+- make a picture by phone;
+- get location;
+
+
 <table>
     <thead>
         <tr>
