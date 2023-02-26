@@ -1,5 +1,5 @@
 
-#Prototype Social network - Mobile App
+<h1>Prototype Social network - Mobile App</h1>
 
 
 <table>
