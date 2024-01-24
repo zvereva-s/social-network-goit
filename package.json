@@ -37,5 +37,16 @@
   "devDependencies": {
     "@babel/core": "^7.12.9"
   },
-  "private": true
+  "private": true,
+  "description": "It is a cross-platform mobile app for iOS and Android users. The main idea is a social network with usual abilities for users: upload/take pictures, to text a comment, to get location etc.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Coder1pathak/social-network-goit.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Coder1pathak/social-network-goit/issues"
+  },
+  "homepage": "https://github.com/Coder1pathak/social-network-goit#readme"
 }
